@@ -9,8 +9,7 @@
 <html>
 <head>
     <title>Protocol Page</title>
-    <h1>welcome to front</h1>
-    <h2>come on!</h2>
+    <h1>欢迎进入异构传感器管理界面</h1>
 </head>
 <body>
 
