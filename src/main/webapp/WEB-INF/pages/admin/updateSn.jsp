@@ -1,5 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -21,22 +21,21 @@
 </head>
 <body>
     <div class="container">
-        <h1>添加传感器</h1>
+        <h1>更新传感器信息</h1>
         <hr/>
-        <form:form action="/admin/sns/addP" method="post" commandName="sn" role="form">
+        <form:form action="/admin/sns/updateP" method="post" commandName="snP" role="form">
             <div class="form-group">
-                <label for="sensor">传感器:</label>
-                <input type="text" class="form-control" id="sensor" name="sensor" placeholder="Enter Sensor">
+                <label for="sensor">sensor</label>
+                <input type="text" class="form-control" id="sensor" name="sensor" placeholder="Enter sensor" value="${sn.sensor}">
             </div>
             <div class="form-group">
-                <label for="protocol">解析方法:</label>
-                <input type="text" class="form-control" id="protocol" name="protocol" placeholder="Enter Protocol">
+                <label for="protocol">sensor</label>
+                <input type="text" class="form-control" id="protocol" name="protocol" placeholder="Enter sensor" value="${sn.protocol}">
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-sm btn-success">提交</button>
             </div>
         </form:form>
-
     </div>
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>

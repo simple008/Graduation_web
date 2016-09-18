@@ -8,29 +8,42 @@
     <schema id="3" name="mysql"/>
     <table id="4" parent="1" name="SN"/>
     <table id="5" parent="1" name="ads_id"/>
-    <column id="6" parent="4" name="sensor">
+    <table id="6" parent="1" name="user"/>
+    <column id="7" parent="4" name="sensor">
       <mandatory>1</mandatory>
       <data-type>varchar(50)|0</data-type>
     </column>
-    <column id="7" parent="4" name="protocol">
+    <column id="8" parent="4" name="protocol">
       <mandatory>1</mandatory>
       <data-type>varchar(50)|0</data-type>
     </column>
-    <key id="8" parent="4" name="PRIMARY">
+    <key id="9" parent="4" name="PRIMARY">
       <columns>sensor</columns>
       <primary>1</primary>
     </key>
-    <column id="9" parent="5" name="id">
+    <column id="10" parent="5" name="id">
       <mandatory>1</mandatory>
       <data-type>int(11)|0</data-type>
       <sequence-identity>1</sequence-identity>
     </column>
-    <column id="10" parent="5" name="target_id">
+    <column id="11" parent="5" name="target_id">
       <mandatory>1</mandatory>
       <data-type>varchar(155)|0</data-type>
     </column>
-    <key id="11" parent="5" name="PRIMARY">
+    <key id="12" parent="5" name="PRIMARY">
       <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <column id="13" parent="6" name="name">
+      <mandatory>1</mandatory>
+      <data-type>varchar(50)|0</data-type>
+    </column>
+    <column id="14" parent="6" name="password">
+      <mandatory>1</mandatory>
+      <data-type>varchar(50)|0</data-type>
+    </column>
+    <key id="15" parent="6" name="PRIMARY">
+      <columns>name</columns>
       <primary>1</primary>
     </key>
   </database-model>

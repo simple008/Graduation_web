@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>异构传感器管理</title>
+    <title>异构传感器管理界面</title>
 
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -34,7 +34,7 @@
         <!-- 如果用户列表为空 -->
         <c:if test="${empty snList}">
             <div class="alert alert-warning" role="alert">
-                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>User表为空，请<a href="/admin/users/add" type="button" class="btn btn-primary btn-sm">添加</a>
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>Sn表为空，请<a href="/admin/sns/add" type="button" class="btn btn-primary btn-sm">添加</a>
             </div>
         </c:if>
         <!-- 如果用户列表非空 -->

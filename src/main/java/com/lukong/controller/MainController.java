@@ -3,9 +3,11 @@ package com.lukong.controller;
 import com.lukong.model.SnEntity;
 import com.lukong.repository.SNRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -45,4 +47,43 @@ public class MainController {
         snRepository.saveAndFlush(snEntity);
         return "redirect:/admin/sns";
     }
+
+    @RequestMapping(value = "/admin/sns/show/{sensor}",method = RequestMethod.GET)
+    public String showSn(@PathVariable("sensor")String sensor,ModelMap modelMap){
+        //找到sensor所表示的用户
+        SnEntity snEntity_ex=new SnEntity();
+        snEntity_ex.setSensor(sensor);
+        SnEntity snEntity=snRepository.findOne(Example.of(snEntity_ex));
+        //传递给请求页面
+        modelMap.addAttribute("sn",snEntity);
+        return "admin/snDetail";
+    }
+
+    @RequestMapping(value = "/admin/sns/update/{sensor}",method = RequestMethod.GET)
+    public String updateSn(@PathVariable("sensor") String sensor,ModelMap modelMap){
+        //找到sensor所表示的用户
+        SnEntity snEntity_ex=new SnEntity();
+        snEntity_ex.setSensor(sensor);
+        SnEntity snEntity=snRepository.findOne(Example.of(snEntity_ex));
+        //传递给请求页面
+        modelMap.addAttribute("sn",snEntity);
+        return "admin/updateSn";
+    }
+    @RequestMapping(value = "/admin/sns/updateP",method = RequestMethod.POST)
+    public String updateSnPost(@ModelAttribute("snP") SnEntity snEntity){
+        //更新用户信息
+        snRepository.updateSn(snEntity.getSensor(),snEntity.getProtocol());
+        snRepository.flush();//刷新缓冲区
+        return "redirect:/admin/sns";
+    }
+
+    @RequestMapping(value = "/admin/sns/delete/{sensor}",method = RequestMethod.GET)
+    public String deleteSn(@PathVariable("sensor")String sensor){
+        //删除sensor为sensor的传感器
+        SnEntity snEntity=new SnEntity();
+        snEntity.setSensor(sensor);
+        snRepository.delete(snEntity);
+        return "redirect:/admin/sns";
+    }
+
 }
