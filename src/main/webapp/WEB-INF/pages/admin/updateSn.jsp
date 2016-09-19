@@ -8,6 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>异构传感器管理界面</title>
+    <style>
+        .addwidth {
+            width: 200px !important;
+        }
+    </style>
 
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -26,25 +31,25 @@
         <form:form action="/admin/sns/updateP" method="post" commandName="snP" role="form">
             <div class="form-group">
                 <label for="sensor">传感器:</label>
-                <input type="text" class="form-control" id="sensor" name="sensor" placeholder="Enter sensor" value="${sn.sensor}">
+                <input type="text" class="form-control addwidth" id="sensor" name="sensor" placeholder="Enter sensor" value="${sn.sensor}">
             </div>
             <div class="form-group">
                 <label for="protocol">解析方法:</label>
-                <input type="text" class="form-control" id="protocol" name="protocol" placeholder="Enter protocol" value="${sn.protocol}">
+                <input type="text" class="form-control addwidth" id="protocol" name="protocol" placeholder="Enter protocol" value="${sn.protocol}">
             </div>
             <div class="form-group">
                 <label for="communication">传输方式:</label>
-                <input type="text" class="form-control" id="communication" name="communication" placeholder="Enter communication" value="${sn.communication}">
+                <input type="text" class="form-control addwidth" id="communication" name="communication" placeholder="Enter communication" value="${sn.communication}">
             </div>
 
             <div class="form-group">
                 <label for="ip">传输方式:</label>
-                <input type="text" class="form-control" id="ip" name="ip" placeholder="Enter ip" value="${sn.ip}">
+                <input type="text" class="form-control addwidth" id="ip" name="ip" placeholder="Enter ip" value="${sn.ip}">
             </div>
 
             <div class="form-group">
                 <label for="port">传输方式:</label>
-                <input type="text" class="form-control" id="port" name="port" placeholder="Enter port" value="${sn.port}">
+                <input type="text" class="form-control addwidth" id="port" name="port" placeholder="Enter port" value="${sn.port}">
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-sm btn-success">提交</button>
