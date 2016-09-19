@@ -33,6 +33,21 @@
                 <input type="text" class="form-control" id="protocol" name="protocol" placeholder="Enter Protocol">
             </div>
             <div class="form-group">
+                <label for="communication">传输方式:</label>
+                <input type="text" class="form-control" id="communication" name="communication" placeholder="Enter communication">
+            </div>
+
+            <div class="form-group">
+                <label for="ip">传输方式:</label>
+                <input type="text" class="form-control" id="ip" name="ip" placeholder="Enter ip">
+            </div>
+
+            <div class="form-group">
+                <label for="port">传输方式:</label>
+                <input type="text" class="form-control" id="port" name="port" placeholder="Enter port">
+            </div>
+
+            <div class="form-group">
                 <button type="submit" class="btn btn-sm btn-success">提交</button>
             </div>
         </form:form>

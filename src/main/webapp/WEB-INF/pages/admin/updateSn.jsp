@@ -25,12 +25,26 @@
         <hr/>
         <form:form action="/admin/sns/updateP" method="post" commandName="snP" role="form">
             <div class="form-group">
-                <label for="sensor">sensor</label>
+                <label for="sensor">传感器:</label>
                 <input type="text" class="form-control" id="sensor" name="sensor" placeholder="Enter sensor" value="${sn.sensor}">
             </div>
             <div class="form-group">
-                <label for="protocol">sensor</label>
-                <input type="text" class="form-control" id="protocol" name="protocol" placeholder="Enter sensor" value="${sn.protocol}">
+                <label for="protocol">解析方法:</label>
+                <input type="text" class="form-control" id="protocol" name="protocol" placeholder="Enter protocol" value="${sn.protocol}">
+            </div>
+            <div class="form-group">
+                <label for="communication">传输方式:</label>
+                <input type="text" class="form-control" id="communication" name="communication" placeholder="Enter communication" value="${sn.communication}">
+            </div>
+
+            <div class="form-group">
+                <label for="ip">传输方式:</label>
+                <input type="text" class="form-control" id="ip" name="ip" placeholder="Enter ip" value="${sn.ip}">
+            </div>
+
+            <div class="form-group">
+                <label for="port">传输方式:</label>
+                <input type="text" class="form-control" id="port" name="port" placeholder="Enter port" value="${sn.port}">
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-sm btn-success">提交</button>

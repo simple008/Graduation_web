@@ -15,6 +15,7 @@ public interface SNRepository extends JpaRepository<SnEntity,Integer> {
     @Transactional  // 说明该方法是事务性操作
     // 定义查询
     // @Param注解用于提取参数
-    @Query("update SnEntity sn set sn.sensor=:qsensor,sn.protocol=:qprotocol where sn.sensor=:qsensor")
-    void updateSn(@Param("qsensor") String sensor, @Param("qprotocol") String protocol);
+    @Query("update SnEntity sn set sn.sensor=:qsensor,sn.protocol=:qprotocol,sn.communication=:qcomm,sn.ip=:qip,sn.port=:qport where sn.sensor=:qsensor")
+    void updateSn(@Param("qsensor") String sensor, @Param("qprotocol") String protocol
+    ,@Param("qcomm")String comm,@Param("qip") String ip,@Param("qport")String port);
 }

@@ -28,16 +28,20 @@
             <td>${sn.sensor}</td>
         </tr>
         <tr>
-            <th>传感器传输方式</th>
-            <td>socket</td>
+            <th>解析方法</th>
+            <td>${sn.protocol}</td>
+        </tr>
+        <tr>
+            <th>传输方式</th>
+            <td>${sn.communication}</td>
         </tr>
         <tr>
             <th>ip</th>
-            <td>localhost</td>
+            <td>${sn.ip}</td>
         </tr>
         <tr>
             <th>port</th>
-            <td>7777</td>
+            <td>${sn.port}</td>
         </tr>
     </table>
 

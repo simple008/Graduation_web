@@ -6,10 +6,13 @@ import javax.persistence.*;
  * Created by lukong on 16/9/17.
  */
 @Entity
-@Table(name = "SN", schema = "test", catalog = "")
+@Table(name = "sensor", schema = "test", catalog = "")
 public class SnEntity {
     private String sensor;
     private String protocol;
+    private String communication;
+    private String ip;
+    private String port;
 
     @Id
     @Column(name = "sensor", nullable = false, length = 50)
@@ -49,5 +52,35 @@ public class SnEntity {
         int result = sensor != null ? sensor.hashCode() : 0;
         result = 31 * result + (protocol != null ? protocol.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "communication", nullable = false, length = 50)
+    public String getCommunication() {
+        return communication;
+    }
+
+    public void setCommunication(String communication) {
+        this.communication = communication;
+    }
+
+    @Basic
+    @Column(name = "ip", nullable = false, length = 50)
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    @Basic
+    @Column(name = "port", nullable = false, length = 50)
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
     }
 }
