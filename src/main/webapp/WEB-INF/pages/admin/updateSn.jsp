@@ -43,12 +43,12 @@
             </div>
 
             <div class="form-group">
-                <label for="ip">传输方式:</label>
+                <label for="ip">IP:</label>
                 <input type="text" class="form-control addwidth" id="ip" name="ip" placeholder="Enter ip" value="${sn.ip}">
             </div>
 
             <div class="form-group">
-                <label for="port">传输方式:</label>
+                <label for="port">端口号:</label>
                 <input type="text" class="form-control addwidth" id="port" name="port" placeholder="Enter port" value="${sn.port}">
             </div>
             <div class="form-group">
