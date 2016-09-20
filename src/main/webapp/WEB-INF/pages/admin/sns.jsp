@@ -39,7 +39,7 @@
         </c:if>
         <!-- 如果用户列表非空 -->
         <c:if test="${!empty snList}">
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped" style="width:auto;">
                 <tr>
                     <th>名称</th>
                     <th>解析方法</th>

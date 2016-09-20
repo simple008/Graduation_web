@@ -22,7 +22,7 @@
 <div class="container">
     <h1>传感器具体信息</h1>
     <hr/>
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped" style="width: auto;">
         <tr>
             <th>传感器名称</th>
             <td>${sn.sensor}</td>
