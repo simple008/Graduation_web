@@ -11,6 +11,25 @@
 
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <style>
+        .form-control-add {
+            width: 200px;
+            height: 20px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+    </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,11 +45,11 @@
         <form:form action="/admin/users/add" method="post" commandName="usadd" role="form">
             <div class="form-group">
                 <label for="name">用户名</label>
-                <input type="text" class="form-control" id="name" name="name">
+                <input type="text" class="form-control-add" id="name" name="name">
             </div>
             <div class="form-group">
-                <label for="password">密码</label>
-                <input type="text" class="form-control" id="password" name="password">
+                <label for="password">密码  &nbsp&nbsp</label>
+                <input type="text" class="form-control-add" id="password" name="password">
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-sm btn-success">提交</button>
