@@ -12,7 +12,6 @@
     <column id="7" parent="4" name="id">
       <mandatory>1</mandatory>
       <data-type>int(11)|0</data-type>
-      <sequence-identity>1</sequence-identity>
     </column>
     <column id="8" parent="4" name="target_id">
       <mandatory>1</mandatory>
