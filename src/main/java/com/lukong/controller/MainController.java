@@ -50,6 +50,7 @@ public class MainController {
 
     @RequestMapping(value = "/admin/sns/show/{sensor}",method = RequestMethod.GET)
     public String showSn(@PathVariable("sensor")String sensor,ModelMap modelMap){
+
         //找到sensor所表示的用户
         SnEntity snEntity_ex=new SnEntity();
         snEntity_ex.setSensor(sensor);

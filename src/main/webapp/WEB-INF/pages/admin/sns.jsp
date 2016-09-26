@@ -54,6 +54,8 @@
                             <a href="/admin/sns/update/${sn.sensor}" type="button" class="btn btn-sm btn-warning">修改</a>
                             <a href="/admin/sns/delete/${sn.sensor}" type="button" class="btn btn-sm btn-danger">删除</a>
                             <a href="/jar/add/${sn.sensor}" type="button" class="btn btn-sm btn-success">添加解析方法JAR</a>
+                            <a href="/jar/submit/${sn.sensor}" type="button" class="btn btn-sm btn-success">提交</a>
+
                         </td>
                     </tr>
                 </c:forEach>

@@ -9,9 +9,15 @@
 <html>
 <head>
     <title>Submit</title>
-    <h1>upload jar</h1>
+    <h1>upload jars</h1>
+    <hr/>
 </head>
 <body>
+<div class="input-chunk">
+    <div>输入文件：</div>
+    <input type="file" value="选择文件" id="upload-file">
+    <br>
 
+</div>
 </body>
 </html>
