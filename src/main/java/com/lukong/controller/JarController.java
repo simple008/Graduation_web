@@ -32,6 +32,7 @@ public class JarController {
     @Autowired
     SpringRestClient springRestClient;
 
+    String jarFileName;
 
     /*将按钮触发到提交JAR包页面*/
     @RequestMapping(value = "/jar/add/{sensor}",method = RequestMethod.GET)
@@ -45,6 +46,7 @@ public class JarController {
     public String upload(@RequestParam("jar")MultipartFile jar){
 
         System.out.println("获取到文件："+jar.getOriginalFilename());
+        jarFileName=jar.getOriginalFilename();
 
         File file=new File("/Users/lukong/Desktop/svn/Graduation_web/methods/"+jar.getOriginalFilename());
         try {
@@ -64,10 +66,11 @@ public class JarController {
         String jarId= (String) springRestClient.getJars().get("id");
         System.out.println("jarId:"+ jarId);
         String entry_class="com.bupt.flink.apps.demo.FlinkSensorAdapter";
-        String program_args="--sensor "+sensor;
+        String program_args="--sensor "+sensor +" --jarFileName "+jarFileName;
         Map<String,Object> jobInfo=springRestClient.run(jarId,entry_class,program_args);
 
         System.out.println("jobId: "+jobInfo.get("jobid"));
+        System.out.println("jarFileName: "+jarFileName);
 
         return "redirect:/admin/sns";
     }
