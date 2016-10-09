@@ -43,6 +43,7 @@
                 <tr>
                     <th>名称</th>
                     <th>解析方法</th>
+                    <th>功能</th>
                 </tr>
 
                 <c:forEach items="${snList}" var="sn">

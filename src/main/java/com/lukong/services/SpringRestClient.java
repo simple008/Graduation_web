@@ -25,7 +25,7 @@ public class SpringRestClient {
 
     /*-----GET-----*/
 
-    /*获取所有jar包的信息*/
+    /*获取第一jar包的信息*/
     public  Map getJars(){
         System.out.println("list jars....");
         RestTemplate restTemplate=new RestTemplate();
@@ -50,7 +50,7 @@ public class SpringRestClient {
     }
 
     /*获取协议执行图*/
-    public static void getPlan(String jarId,String entry_class,String program_args){
+    public void getPlan(String jarId,String entry_class,String program_args){
         System.out.println("get plan...");
 
         RestTemplate restTemplate=new RestTemplate();
@@ -68,7 +68,13 @@ public class SpringRestClient {
     /*----POST-----*/
 
     /*运行组装好的协议适配器*/
-    public static void run(String jarId,String entry_class,String program_args){
+
+    /*响应数据类型
+    * {
+         "jobid": "2c262866f234a3d96ed566ec7842ed13"
+      }
+    * */
+    public  Map run(String jarId,String entry_class,String program_args){
         System.out.println("run job...");
 
         Map<String,Object>uriVariables=new HashedMap();
@@ -81,7 +87,9 @@ public class SpringRestClient {
         Map res=restTemplate.postForObject(REST_SERVICE_URI+"/jars/{jarId}/run?entry-class={entry_class}&program-args={program_args}",
                 test,Map.class,uriVariables);
 
-        System.out.println(res.get("jobid"));
+        //System.out.println(res.get("jobid"));
+
+        return res;
     }
 
     /*上传开发好的协议JAR包文件*/
@@ -110,8 +118,8 @@ public class SpringRestClient {
     public static void main(String... args) throws IOException {
         //getJars();
         //getInfo();
-        run("fed5ebf9-434f-43c9-92d5-4ee9343e289c_Graduation-1.0-SNAPSHOT.jar","com.bupt.flink.socket.ais.FlinkAisPro",
-               "");
+        //run("fed5ebf9-434f-43c9-92d5-4ee9343e289c_Graduation-1.0-SNAPSHOT.jar","com.bupt.flink.socket.ais.FlinkAisPro",
+         //      "");
         //upload();
     }
 }

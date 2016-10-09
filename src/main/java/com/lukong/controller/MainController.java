@@ -73,7 +73,8 @@ public class MainController {
     @RequestMapping(value = "/admin/sns/updateP",method = RequestMethod.POST)
     public String updateSnPost(@ModelAttribute("snP") SnEntity snEntity){
         //更新用户信息
-        snRepository.updateSn(snEntity.getSensor(),snEntity.getProtocol(),snEntity.getCommunication(),snEntity.getIp(),snEntity.getPort());
+        snRepository.updateSn(snEntity.getSensor(),snEntity.getProtocol(),
+                snEntity.getCommunication(),snEntity.getIp(),snEntity.getPort());
         snRepository.flush();//刷新缓冲区
         return "redirect:/admin/sns";
     }

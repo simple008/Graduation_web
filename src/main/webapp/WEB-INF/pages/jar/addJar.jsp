@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: lukong
@@ -9,15 +10,18 @@
 <html>
 <head>
     <title>Submit</title>
-    <h1>upload jars</h1>
+    <h2>上传解析逻辑JAR包</h2>
     <hr/>
 </head>
 <body>
-<div class="input-chunk">
-    <div>输入文件：</div>
-    <input type="file" value="选择文件" id="upload-file">
-    <br>
-
-</div>
+    <div>
+        <form:form method="post" action="/jar/upload" commandName="jar" enctype="multipart/form-data">
+            <tr>
+                <th><label for="file_jar">解析方法JAR包:</label></th>
+                <td><input name="jar" type="file" id="file_jar"></td>
+            </tr>
+            <button type="submit">提交</button>
+        </form:form>
+    </div>
 </body>
 </html>
