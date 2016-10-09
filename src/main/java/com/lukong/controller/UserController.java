@@ -31,10 +31,12 @@ public class UserController {
             return "/index";
         }
     }
+
     @RequestMapping(value = "/admin/reg",method = RequestMethod.GET)
     public String getReg(){
         return "/admin/register";
     }
+
     @RequestMapping(value = "/admin/users/add",method = RequestMethod.POST)
     public String addUser(@ModelAttribute("usadd")UserEntity userEntity){
         System.out.println("insert!");

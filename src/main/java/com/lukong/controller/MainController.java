@@ -41,7 +41,7 @@ public class MainController {
         // 通过@ModelAttribute()注解可以获取传递过来的'sn'，并创建这个对象
 
         // 数据库中添加一个用户，该步暂时不会刷新缓存
-        //userRepository.save(userEntity);
+        //userRepository.save(SnEntity);
 
         // 数据库中添加一个用户，并立即刷新缓存
         snRepository.saveAndFlush(snEntity);
