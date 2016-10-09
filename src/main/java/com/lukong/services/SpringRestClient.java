@@ -110,8 +110,8 @@ public class SpringRestClient {
     public static void main(String... args) throws IOException {
         //getJars();
         //getInfo();
-        //run("d9c0ac67-0fb3-41be-9449-03c91ab62332_Graduation-1.0-SNAPSHOT.jar","com.bupt.flink.socket.ais.FlinkAisPro",
-        //       "");
+        run("fed5ebf9-434f-43c9-92d5-4ee9343e289c_Graduation-1.0-SNAPSHOT.jar","com.bupt.flink.socket.ais.FlinkAisPro",
+               "");
         //upload();
     }
 }

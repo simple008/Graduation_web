@@ -1,12 +1,16 @@
 package com.lukong.controller;
 
+import com.lukong.model.UserEntity;
 import com.lukong.services.SpringRestClient;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -47,6 +51,29 @@ public class FlinkController {
     }
 
     /*----处理表单--------*/
+
+    /*将对象与表单绑定*/
+    @RequestMapping(value = "/demo",method = RequestMethod.GET)
+    public String demo(ModelMap modelMap){
+        modelMap.addAttribute("user",new UserEntity());
+        return "/flink/demo";
+    }
+
+    /*处理表单信息*/
+    @RequestMapping(value = "/form",method = RequestMethod.POST)
+    public String form(@ModelAttribute("user")UserEntity userEntity,@RequestParam(value = "jar") MultipartFile jar) throws IOException {
+
+        System.out.println(userEntity.getName());
+        System.out.println("jar:"+jar.getName()+" size: "+jar.getSize());
+
+        File file=new File("/Users/lukong/Desktop/svn/Graduation_web/methods/"+jar.getName()+".jar");
+        FileUtils.writeByteArrayToFile(file,jar.getBytes());
+
+
+        return "/flink/demo";
+    }
+
+    /*-----处理上传文件------*/
 
 
 }
