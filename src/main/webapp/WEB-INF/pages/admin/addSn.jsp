@@ -53,6 +53,11 @@
             </div>
 
             <div class="form-group">
+                <label for="topic">发布主题：</label>
+                <input type="text" class="form-control addwidth" id="topic" name="topic" placeholder="Enter topic">
+            </div>
+
+            <div class="form-group">
                 <button type="submit" class="btn btn-sm btn-success">提交</button>
             </div>
         </form:form>

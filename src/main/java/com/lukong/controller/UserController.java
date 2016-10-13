@@ -17,6 +17,8 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    /*----confirmation-------*/
+
     @RequestMapping(value = "/admin/users" ,method = RequestMethod.POST)
     public String confirmation(@ModelAttribute("us")UserEntity userEntity){
         String name=userRepository.select(userEntity.getName(),userEntity.getPassword());
@@ -32,6 +34,7 @@ public class UserController {
         }
     }
 
+    /*----register------*/
     @RequestMapping(value = "/admin/reg",method = RequestMethod.GET)
     public String getReg(){
         return "/admin/register";

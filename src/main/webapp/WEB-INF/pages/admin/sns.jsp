@@ -43,7 +43,8 @@
                 <tr>
                     <th>名称</th>
                     <th>解析方法</th>
-                    <th>功能</th>
+                    <th>修改模型</th>
+                    <th>控制</th>
                 </tr>
 
                 <c:forEach items="${snList}" var="sn">
@@ -54,9 +55,11 @@
                             <a href="/admin/sns/show/${sn.sensor}" type="button" class="btn btn-sm btn-success">详情</a>
                             <a href="/admin/sns/update/${sn.sensor}" type="button" class="btn btn-sm btn-warning">修改</a>
                             <a href="/admin/sns/delete/${sn.sensor}" type="button" class="btn btn-sm btn-danger">删除</a>
+                        </td>
+
+                        <td>
                             <a href="/jar/add/${sn.sensor}" type="button" class="btn btn-sm btn-success">添加解析方法JAR</a>
                             <a href="/jar/submit/${sn.sensor}" type="button" class="btn btn-sm btn-success">提交</a>
-
                         </td>
                     </tr>
                 </c:forEach>

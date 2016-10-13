@@ -48,7 +48,7 @@ public class JarController {
         System.out.println("获取到文件："+jar.getOriginalFilename());
         jarFileName=jar.getOriginalFilename();
 
-        File file=new File("/Users/lukong/Desktop/svn/Graduation_web/methods/"+jar.getOriginalFilename());
+        File file=new File("/Users/lukong/Desktop/svn/Graduation_web/src/main/webapp/methods/"+jar.getOriginalFilename());
         try {
             FileUtils.writeByteArrayToFile(file,jar.getBytes());
         } catch (IOException e) {
@@ -66,7 +66,11 @@ public class JarController {
         String jarId= (String) springRestClient.getJars().get("id");
         System.out.println("jarId:"+ jarId);
         String entry_class="com.bupt.flink.apps.demo.FlinkSensorAdapter";
-        String program_args="--sensor "+sensor +" --jarFileName "+jarFileName;
+
+        /*从传感器适配器模型中获取发布主题*/
+        String topic="dj-ads-2014140880";//?
+
+        String program_args="--sensor "+sensor +" --jarFileName "+jarFileName +" --topic "+topic;
         Map<String,Object> jobInfo=springRestClient.run(jarId,entry_class,program_args);
 
         System.out.println("jobId: "+jobInfo.get("jobid"));

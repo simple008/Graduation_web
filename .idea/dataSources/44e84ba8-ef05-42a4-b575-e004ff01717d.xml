@@ -54,20 +54,24 @@
       <mandatory>1</mandatory>
       <data-type>varchar(50)|0</data-type>
     </column>
-    <key id="19" parent="6" name="PRIMARY">
+    <column id="19" parent="6" name="topic">
+      <mandatory>1</mandatory>
+      <data-type>varchar(50)|0</data-type>
+    </column>
+    <key id="20" parent="6" name="PRIMARY">
       <columns>sensor</columns>
       <primary>1</primary>
     </key>
-    <column id="20" parent="7" name="id">
+    <column id="21" parent="7" name="id">
       <mandatory>1</mandatory>
       <data-type>int(11)|0</data-type>
       <sequence-identity>1</sequence-identity>
     </column>
-    <column id="21" parent="7" name="sensor">
+    <column id="22" parent="7" name="sensor">
       <mandatory>1</mandatory>
       <data-type>varchar(50)|0</data-type>
     </column>
-    <key id="22" parent="7" name="PRIMARY">
+    <key id="23" parent="7" name="PRIMARY">
       <columns>id</columns>
       <primary>1</primary>
     </key>

@@ -51,6 +51,12 @@
                 <label for="port">端口号:</label>
                 <input type="text" class="form-control addwidth" id="port" name="port" placeholder="Enter port" value="${sn.port}">
             </div>
+
+            <div class="form-group">
+                <label for="topic">发布主题:</label>
+                <input type="text" class="form-control addwidth" id="topic" name="topic" placeholder="Enter topic" value="${sn.topic}">
+            </div>
+
             <div class="form-group">
                 <button type="submit" class="btn btn-sm btn-success">提交</button>
             </div>

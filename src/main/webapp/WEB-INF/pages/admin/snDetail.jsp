@@ -43,6 +43,11 @@
             <th>port</th>
             <td>${sn.port}</td>
         </tr>
+
+        <tr>
+            <th>topic</th>
+            <td>${sn.topic}</td>
+        </tr>
     </table>
 
 </div>
