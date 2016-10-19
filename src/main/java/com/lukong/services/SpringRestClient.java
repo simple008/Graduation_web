@@ -1,7 +1,9 @@
 package com.lukong.services;
 
 import com.lukong.model.flink_web.Jars;
+import com.lukong.model.flink_web.Job;
 import org.apache.commons.collections.map.HashedMap;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
@@ -65,6 +67,34 @@ public class SpringRestClient {
 
     }
 
+    /*停止运行中的任务*/
+    public void cancel(String jobid){
+
+        RestTemplate restTemplate=new RestTemplate();
+        String res=
+                restTemplate.getForObject(REST_SERVICE_URI+"/jobs/{jobId}/yarn-cancel",String.class,jobid);
+
+    }
+
+    public  List<Map> getJobs(){
+
+        RestTemplate restTemplate=new RestTemplate();
+        Map<String,List<Map>> res=restTemplate.getForObject(REST_SERVICE_URI+"/joboverview/running",Map.class);
+
+        //Map map= res.get("jobs").get(0);
+        List<Map>list=res.get("jobs");
+        //System.out.println(map.get("name"));
+
+        return list;
+    }
+
+    public List<Map> getJobsComp(){
+        RestTemplate restTemplate=new RestTemplate();
+        Map<String,List<Map>> res=restTemplate.getForObject(REST_SERVICE_URI+"/joboverview/completed",Map.class);
+        List<Map>list=res.get("jobs");
+        return list;
+    }
+
     /*----POST-----*/
 
     /*运行组装好的协议适配器*/
@@ -93,7 +123,7 @@ public class SpringRestClient {
     }
 
     /*上传开发好的协议JAR包文件*/
-    public static void upload() throws IOException {
+    public void upload() throws IOException {
 
         System.out.println("upload...");
         /*应该形参为二进制流文件？*/
@@ -111,15 +141,10 @@ public class SpringRestClient {
         System.out.println(res);
     }
 
+
+
     /*------DELETE-------*/
 
-
-
-    public static void main(String... args) throws IOException {
-        //getJars();
-        //getInfo();
-        //run("fed5ebf9-434f-43c9-92d5-4ee9343e289c_Graduation-1.0-SNAPSHOT.jar","com.bupt.flink.socket.ais.FlinkAisPro",
-         //      "");
-        //upload();
+    public static void main(String ...args){
     }
 }

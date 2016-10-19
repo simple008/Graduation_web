@@ -28,9 +28,9 @@
 </head>
 <body>
     <div class="container">
-        <h1>异构传感器管理</h1>
+        <h1>传感器建模</h1>
         <hr/>
-        <h3>所有传感器<a href="/admin/sns/add" type="button" class="btn btn-primary btn-sm">添加</a></h3>
+        <h3>所有传感器模型<a href="/admin/sns/add" type="button" class="btn btn-primary btn-sm">添加</a></h3>
         <!-- 如果用户列表为空 -->
         <c:if test="${empty snList}">
             <div class="alert alert-warning" role="alert">

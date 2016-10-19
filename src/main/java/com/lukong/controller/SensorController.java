@@ -34,6 +34,7 @@ public class SensorController {
     public String getSns(ModelMap modelMap){
         List<SensorEntity> snList=snRepository.findAll();
         modelMap.addAttribute("snList",snList);
+
         return "/admin/sns";
     }
 

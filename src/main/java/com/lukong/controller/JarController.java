@@ -1,10 +1,12 @@
 package com.lukong.controller;
 
+import com.lukong.model.SensorEntity;
 import com.lukong.repository.RunRepository;
 import com.lukong.repository.SNRepository;
 import com.lukong.services.SpringRestClient;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,15 +67,24 @@ public class JarController {
 
         String jarId= (String) springRestClient.getJars().get("id");
         System.out.println("jarId:"+ jarId);
-        String entry_class="com.bupt.flink.apps.demo.FlinkSensorAdapter";
+        String entry_class_up="com.bupt.flink.apps.demo.FlinkSensorAdapterUp";
+        String entry_class_down="com.bupt.flink.apps.demo.FlinkSensorAdapterDown";
 
         /*从传感器适配器模型中获取发布主题*/
-        String topic="dj-ads-2014140880";//?
+        SensorEntity sensorEntity=new SensorEntity();
+        sensorEntity.setSensor(sensor);
+        SensorEntity sensor_target=snRepository.findOne(Example.of(sensorEntity));
+        String topic=sensor_target.getTopic();
 
-        String program_args="--sensor "+sensor +" --jarFileName "+jarFileName +" --topic "+topic;
-        Map<String,Object> jobInfo=springRestClient.run(jarId,entry_class,program_args);
+        System.out.println("topic: "+topic);
 
-        System.out.println("jobId: "+jobInfo.get("jobid"));
+        String program_args_up="--sensor "+sensor +" --jarFileName "+jarFileName +" --topic "+topic;
+        String program_args_down="--sensor "+sensor +" --jarFileName "+jarFileName +" --topic "+topic+"-down";
+        Map<String,Object> jobInfo_up=springRestClient.run(jarId,entry_class_up,program_args_up);
+        Map<String,Object> jobInfo_down=springRestClient.run(jarId,entry_class_down,program_args_down);
+
+        System.out.println("jobId: "+jobInfo_up.get("jobid"));
+        System.out.println("jobId: "+jobInfo_down.get("jobid"));
         System.out.println("jarFileName: "+jarFileName);
 
         return "redirect:/admin/sns";
