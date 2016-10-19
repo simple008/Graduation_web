@@ -74,7 +74,7 @@ public class JarController {
         SensorEntity sensorEntity=new SensorEntity();
         sensorEntity.setSensor(sensor);
         SensorEntity sensor_target=snRepository.findOne(Example.of(sensorEntity));
-        String topic=sensor_target.getTopic();
+        String topic=sensor_target.getTopicUp();
 
         System.out.println("topic: "+topic);
 

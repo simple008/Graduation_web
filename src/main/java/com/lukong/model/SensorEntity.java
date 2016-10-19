@@ -3,7 +3,7 @@ package com.lukong.model;
 import javax.persistence.*;
 
 /**
- * Created by lukong on 2016/10/10.
+ * Created by lukong on 2016/10/19.
  */
 @Entity
 @Table(name = "sensor", schema = "test", catalog = "")
@@ -13,7 +13,8 @@ public class SensorEntity {
     private String communication;
     private String ip;
     private String port;
-    private String topic;
+    private String topicUp;
+    private String topicDown;
 
     @Id
     @Column(name = "sensor", nullable = false, length = 50)
@@ -66,13 +67,23 @@ public class SensorEntity {
     }
 
     @Basic
-    @Column(name = "topic", nullable = false, length = 50)
-    public String getTopic() {
-        return topic;
+    @Column(name = "topic_up", nullable = false, length = 50)
+    public String getTopicUp() {
+        return topicUp;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setTopicUp(String topicUp) {
+        this.topicUp = topicUp;
+    }
+
+    @Basic
+    @Column(name = "topic_down", nullable = false, length = 50)
+    public String getTopicDown() {
+        return topicDown;
+    }
+
+    public void setTopicDown(String topicDown) {
+        this.topicDown = topicDown;
     }
 
     @Override
@@ -88,7 +99,8 @@ public class SensorEntity {
             return false;
         if (ip != null ? !ip.equals(that.ip) : that.ip != null) return false;
         if (port != null ? !port.equals(that.port) : that.port != null) return false;
-        if (topic != null ? !topic.equals(that.topic) : that.topic != null) return false;
+        if (topicUp != null ? !topicUp.equals(that.topicUp) : that.topicUp != null) return false;
+        if (topicDown != null ? !topicDown.equals(that.topicDown) : that.topicDown != null) return false;
 
         return true;
     }
@@ -100,7 +112,8 @@ public class SensorEntity {
         result = 31 * result + (communication != null ? communication.hashCode() : 0);
         result = 31 * result + (ip != null ? ip.hashCode() : 0);
         result = 31 * result + (port != null ? port.hashCode() : 0);
-        result = 31 * result + (topic != null ? topic.hashCode() : 0);
+        result = 31 * result + (topicUp != null ? topicUp.hashCode() : 0);
+        result = 31 * result + (topicDown != null ? topicDown.hashCode() : 0);
         return result;
     }
 }

@@ -46,7 +46,12 @@
 
         <tr>
             <th>topic</th>
-            <td>${sn.topic}</td>
+            <td>${sn.topicUp}</td>
+        </tr>
+
+        <tr>
+            <th>topic_down</th>
+            <td>${sn.topicDown}</td>
         </tr>
     </table>
 

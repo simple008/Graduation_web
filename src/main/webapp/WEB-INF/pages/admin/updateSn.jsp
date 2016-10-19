@@ -54,8 +54,14 @@
 
             <div class="form-group">
                 <label for="topic">发布主题:</label>
-                <input type="text" class="form-control addwidth" id="topic" name="topic" placeholder="Enter topic" value="${sn.topic}">
+                <input type="text" class="form-control addwidth" id="topic" name="topicUp" placeholder="Enter topic" value="${sn.topicUp}">
             </div>
+
+            <div class="form-group">
+                <label for="topicDown">下发主题:</label>
+                <input type="text" class="form-control addwidth" id="topicDown" name="topicDown" placeholder="Enter topic" value="${sn.topicDown}">
+            </div>
+
 
             <div class="form-group">
                 <button type="submit" class="btn btn-sm btn-success">提交</button>

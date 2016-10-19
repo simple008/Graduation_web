@@ -44,6 +44,8 @@ public class SensorController {
     public String addSn(){
         return "admin/addSn";
     }
+
+
     @RequestMapping(value = "/admin/sns/addP",method = RequestMethod.POST)
     public String addSnPost(@ModelAttribute("sn") SensorEntity snEntity){
         // 注意此处，post请求传递过来的是一个SnEntity对象，里面包含了该用户的信息
@@ -88,7 +90,7 @@ public class SensorController {
     public String updateSnPost(@ModelAttribute("snP") SensorEntity snEntity){
         //更新用户信息
         snRepository.updateSn(snEntity.getSensor(),snEntity.getProtocol(),
-                snEntity.getCommunication(),snEntity.getIp(),snEntity.getPort(),snEntity.getTopic());
+                snEntity.getCommunication(),snEntity.getIp(),snEntity.getPort(),snEntity.getTopicUp(),snEntity.getTopicDown());
         snRepository.flush();//刷新缓冲区
         return "redirect:/admin/sns";
     }
