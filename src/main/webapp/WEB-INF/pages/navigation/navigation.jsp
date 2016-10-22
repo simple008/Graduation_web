@@ -61,18 +61,31 @@
 <body>
     <div class="menu">
        <%--<button onclick="change('/job/jobinfo')">lalala</button>--%>
+        <div style="height: 16px;padding: 17px 25px;">
+            <img src="/images/flink-logo.png" style="width:25px;height:25px"/>
+            <span style="color:#eee"> &nbsp; Dashboard</span>
+        </div>
+
         <div class="navbar navbar-sidebar">
             <ul>
                 <li>
                     <a onclick="change('/admin/sns')" href="javascript:void(0);">
-                        <i class="fa fa-snapchat" aria-hidden="true"></i> &nbsp 传感器建模
+                        <i class="fa fa-snapchat" aria-hidden="true"></i> &nbsp; 传感器建模
                     </a>
                 </li>
                 <li>
                     <a onclick="change('/job/jobinfo')" href="javascript:void(0);">
 
-                        <i class="fa fa-tasks fa-fw" aria-hidden="true"></i> &nbsp 任务管理
+                        <i class="fa fa-tasks fa-fw" aria-hidden="true"></i> &nbsp; 任务管理
                     </a>
+                </li>
+
+                <li >
+                    <a onclick="change('http://www.baidu.com')" href="javascript:void(0)">
+
+                        <i class="fa fa-wpforms" aria-hidden="true"></i> &nbsp;数据处理
+                    </a>
+
                 </li>
 
             </ul>

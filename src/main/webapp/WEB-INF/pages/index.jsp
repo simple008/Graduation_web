@@ -63,7 +63,7 @@
 </head>
 <body>
     <div class="container">
-        <h3>欢迎来到异构传感器接入界面</h3>
+        <h3 style="text-align: center;">欢迎来到异构传感器接入界面</h3>
         <hr/>
         <form:form action="/admin/users" method="post" commandName="us" role="form">
             <div class="form-group">

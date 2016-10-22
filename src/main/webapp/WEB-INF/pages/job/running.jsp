@@ -48,7 +48,7 @@
                     <th>start-time</th>
                     <th>end-time</th>
                     <th>duration</th>
-                    <th>last-modification</th>
+                    <%--<th>last-modification</th>--%>
                     <th>opr</th>
                 </tr>
 
@@ -60,7 +60,7 @@
                         <td>${job.get("start-time")}</td>
                         <td>${job.get("end-time")}</td>
                         <td>${job.get("duration")}</td>
-                        <td>${job.get("last-modification")}</td>
+                        <%--<td>${job.get("last-modification")}</td>--%>
                         <td>
                             <a href="/job/opr/${job.get("jid")}" type="button" class="btn btn-sm btn-success">cancel</a>
                         </td>
@@ -88,7 +88,7 @@
                     <th>start-time</th>
                     <th>end-time</th>
                     <th>duration</th>
-                    <th>last-modification</th>
+                    <%--<th>last-modification</th>--%>
                 </tr>
 
                 <c:forEach items="${jobsComp}" var="job">
@@ -99,7 +99,7 @@
                         <td>${job.get("start-time")}</td>
                         <td>${job.get("end-time")}</td>
                         <td>${job.get("duration")}</td>
-                        <td>${job.get("last-modification")}</td>
+                        <%--<td>${job.get("last-modification")}</td>--%>
                     </tr>
                 </c:forEach>
             </table>
@@ -139,7 +139,7 @@
                 var tbody = document.createElement("tbody");
                 table.appendChild(tbody);
                 tbody.innerHTML="<tr><th>name</th><th>state</th><th>start-time</th><th>end-time</th>"
-                        +"<th>duration</th><th>last-modification</th><th>opr</th></tr>";
+                        +"<th>duration</th><th>opr</th></tr>";
                 for(var i in result.jobs){
                     var tr = document.createElement("tr");
                     var start = new Date(result.jobsComp[i]['start-time']);
@@ -159,7 +159,6 @@
                             +"<td>"+startTime+"</td>"
                             +"<td>"+endTime+"</td>"
                             +"<td>"+result.jobs[i].duration+"</td>"
-                            +"<td>"+lastTime+"</td>"
                             +"<td><a href=\"/job/opr/"+result.jobs[i].jid+"\" type=\"button\" class=\"btn btn-sm btn-success\">cancel</a> </td>";
                     tbody.appendChild(tr);
                 }
@@ -178,7 +177,7 @@
                 var tbody = document.createElement("tbody");
                 table.appendChild(tbody);
                 tbody.innerHTML="<tr><th>name</th><th>state</th><th>start-time</th><th>end-time</th>"
-                        +"<th>duration</th><th>last-modification</th></tr>";
+                        +"<th>duration</th></tr>";
                 for(var i in result.jobsComp){
                     var tr = document.createElement("tr");
                     var start = new Date(result.jobsComp[i]['start-time']);
@@ -198,7 +197,7 @@
                             +"<td>"+startTime+"</td>"
                             +"<td>"+endTime+"</td>"
                             +"<td>"+result.jobsComp[i].duration+"</td>"
-                            +"<td>"+lastTime+"</td>";
+                            ;
                     tbody.appendChild(tr);
                 }
                 endDiv.innerHTML="";
