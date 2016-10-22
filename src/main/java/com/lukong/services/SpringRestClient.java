@@ -99,7 +99,7 @@ public class SpringRestClient {
     public void getMetrics(String jid){
 
         RestTemplate restTemplate=new RestTemplate();
-        //restTemplate.getForObject(REST_SERVICE_URI+"/jobs/{jid}/vertices/",)
+        restTemplate.getForObject(REST_SERVICE_URI+"/jobs/{jid}/vertices/",Map.class,jid);
     }
 
     /*----POST-----*/
