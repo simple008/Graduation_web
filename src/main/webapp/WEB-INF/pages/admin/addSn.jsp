@@ -26,7 +26,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>添加传感器</h1>
+        <h3>添加传感器</h3>
         <hr/>
         <form:form action="/admin/sns/addP" method="post" commandName="sn" role="form">
             <div class="form-group">

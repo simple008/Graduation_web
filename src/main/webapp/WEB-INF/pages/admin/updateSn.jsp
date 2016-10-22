@@ -26,44 +26,50 @@
 </head>
 <body>
     <div class="container">
-        <h1>更新传感器信息</h1>
+        <h3>更新传感器信息</h3>
         <hr/>
         <form:form action="/admin/sns/updateP" method="post" commandName="snP" role="form">
             <div class="form-group">
-                <label for="sensor">传感器:</label>
+                <label for="sensor" class="col-sm-2 control-label">传感器:</label>
                 <input type="text" class="form-control addwidth" id="sensor" name="sensor" placeholder="Enter sensor" value="${sn.sensor}">
             </div>
             <div class="form-group">
-                <label for="protocol">解析方法:</label>
+                <label for="protocol" class="col-sm-2 control-label">解析方法:</label>
                 <input type="text" class="form-control addwidth" id="protocol" name="protocol" placeholder="Enter protocol" value="${sn.protocol}">
             </div>
             <div class="form-group">
-                <label for="communication">传输方式:</label>
-                <input type="text" class="form-control addwidth" id="communication" name="communication" placeholder="Enter communication" value="${sn.communication}">
+                <label for="communication" class="col-sm-2 control-label">传输方式:</label>
+                <%--<input type="text" class="form-control addwidth" id="communication" name="communication" placeholder="Enter communication" value="${sn.communication}">--%>
+                <select id="communication" name="communication">
+                    <option value="tcp">tcp</option>
+                    <option value="udp">udp</option>
+                    <option value="http">http</option>
+                    <option value="web socket">web socket</option>
+                </select>
             </div>
 
             <div class="form-group">
-                <label for="ip">IP:</label>
+                <label for="ip" class="col-sm-2 control-label">IP:</label>
                 <input type="text" class="form-control addwidth" id="ip" name="ip" placeholder="Enter ip" value="${sn.ip}">
             </div>
 
             <div class="form-group">
-                <label for="port">端口号:</label>
+                <label for="port" class="col-sm-2 control-label">端口号:</label>
                 <input type="text" class="form-control addwidth" id="port" name="port" placeholder="Enter port" value="${sn.port}">
             </div>
 
             <div class="form-group">
-                <label for="topic">发布主题:</label>
+                <label for="topic" class="col-sm-2 control-label">发布主题:</label>
                 <input type="text" class="form-control addwidth" id="topic" name="topicUp" placeholder="Enter topic" value="${sn.topicUp}">
             </div>
 
             <div class="form-group">
-                <label for="topicDown">下发主题:</label>
+                <label for="topicDown" class="col-sm-2 control-label">下发主题:</label>
                 <input type="text" class="form-control addwidth" id="topicDown" name="topicDown" placeholder="Enter topic" value="${sn.topicDown}">
             </div>
 
 
-            <div class="form-group">
+            <div class="form-group col-sm-offset-2">
                 <button type="submit" class="btn btn-sm btn-success">提交</button>
             </div>
         </form:form>

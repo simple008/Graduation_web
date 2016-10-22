@@ -40,7 +40,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>请注册</h1>
+        <h3>请注册</h3>
         <hr/>
         <form:form action="/admin/users/add" method="post" commandName="usadd" role="form">
             <div class="form-group">

@@ -28,9 +28,9 @@
 </head>
 <body>
     <div class="container">
-        <h1>传感器建模</h1>
+        <h3>传感器建模</h3>
         <hr/>
-        <h3>所有传感器模型<a href="/admin/sns/add" type="button" class="btn btn-primary btn-sm">添加</a></h3>
+        <h4>所有传感器模型<a href="/admin/sns/add" type="button" class="btn btn-primary btn-sm">添加</a></h4>
         <!-- 如果用户列表为空 -->
         <c:if test="${empty snList}">
             <div class="alert alert-warning" role="alert">
@@ -59,7 +59,8 @@
 
                         <td>
                             <a href="/jar/add/${sn.sensor}" type="button" class="btn btn-sm btn-success">添加解析方法JAR</a>
-                            <a href="/jar/submit/${sn.sensor}" type="button" class="btn btn-sm btn-success">提交</a>
+                            <a href="javascript:void(0);" type="button" class="btn btn-sm btn-success"
+                             onclick="submit('${sn.sensor}')">提交</a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -71,4 +72,11 @@
 
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script>
+        function submit(sensor){
+            $.get("/jar/submit/"+sensor,function(data){
+                alert(data);
+            })
+        }
+    </script>
 </body>

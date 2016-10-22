@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -61,7 +58,7 @@ public class JarController {
 
 
     /*将自动组装好的协议适配器发送给Flink集群服务器*/
-
+    @ResponseBody
     @RequestMapping(value = "jar/submit/{sensor}",method = RequestMethod.GET)
     public String submit(@PathVariable("sensor") String sensor){
 
@@ -87,7 +84,7 @@ public class JarController {
         System.out.println("jobId: "+jobInfo_down.get("jobid"));
         System.out.println("jarFileName: "+jarFileName);
 
-        return "redirect:/admin/sns";
+        return "submit success";
     }
 
     @RequestMapping(value = "/jar/addJar",method = RequestMethod.GET)

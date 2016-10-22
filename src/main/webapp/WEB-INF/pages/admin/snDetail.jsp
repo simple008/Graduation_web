@@ -20,7 +20,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>传感器具体信息</h1>
+    <h3>传感器具体信息</h3>
     <hr/>
     <table class="table table-bordered table-striped" style="width: auto;">
         <tr>

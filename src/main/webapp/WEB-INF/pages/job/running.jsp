@@ -28,83 +28,185 @@
 </head>
 <body>
 <div class="container">
-    <h1>任务管理界面</h1>
+    <h3>任务管理界面</h3>
     <hr/>
-    <h2>正在运行的任务</h2>
+    <h4>正在运行的任务</h4>
     <!-- 如果用户列表为空 -->
-    <c:if test="${empty jobs}">
-        <div class="alert alert-warning" role="alert">
-            <span class="glyphicon glyphicon-info-sign" aria-hidden="true">无任务在运行</span>
-        </div>
-    </c:if>
-    <!-- 如果用户列表非空 -->
-    <c:if test="${!empty jobs}">
-        <table class="table table-bordered table-striped" style="width:auto;">
-            <tr>
-                <th>jid</th>
-                <th>name</th>
-                <th>state</th>
-                <th>start-time</th>
-                <th>end-time</th>
-                <th>duration</th>
-                <th>last-modification</th>
-                <th>opr</th>
-            </tr>
-
-            <c:forEach items="${jobs}" var="job">
+    <div class="running">
+        <c:if test="${empty jobs}">
+            <div class="alert alert-warning" role="alert">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true">无任务在运行</span>
+            </div>
+        </c:if>
+        <!-- 如果用户列表非空 -->
+        <c:if test="${!empty jobs}">
+            <table class="table table-bordered table-striped" style="width:auto;">
                 <tr>
-                    <td>${job.get("jid")}</td>
-                    <td>${job.get("name")}</td>
-                    <td>${job.get("state")}</td>
-                    <td>${job.get("start-time")}</td>
-                    <td>${job.get("end-time")}</td>
-                    <td>${job.get("duration")}</td>
-                    <td>${job.get("last-modification")}</td>
-                    <td>
-                        <a href="/job/opr/${job.get("jid")}" type="button" class="btn btn-sm btn-success">cancel</a>
-                    </td>
+                    <%--<th>jid</th>--%>
+                    <th>name</th>
+                    <th>state</th>
+                    <th>start-time</th>
+                    <th>end-time</th>
+                    <th>duration</th>
+                    <th>last-modification</th>
+                    <th>opr</th>
                 </tr>
-            </c:forEach>
-        </table>
-    </c:if>
+
+                <c:forEach items="${jobs}" var="job">
+                    <tr>
+                        <%--<td>${job.get("jid")}</td>--%>
+                        <td>${job.get("name")}</td>
+                        <td>${job.get("state")}</td>
+                        <td>${job.get("start-time")}</td>
+                        <td>${job.get("end-time")}</td>
+                        <td>${job.get("duration")}</td>
+                        <td>${job.get("last-modification")}</td>
+                        <td>
+                            <a href="/job/opr/${job.get("jid")}" type="button" class="btn btn-sm btn-success">cancel</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
+    </div>
 
 
-    <h2>已完成的任务</h2>
-    <c:if test="${empty jobsComp}">
-        <div class="alert alert-warning" role="alert">
-            <span class="glyphicon glyphicon-info-sign" aria-hidden="true">无任务完成</span>
-        </div>
-    </c:if>
-    <!-- 如果用户列表非空 -->
-    <c:if test="${!empty jobsComp}">
-        <table class="table table-bordered table-striped" style="width:auto;">
-            <tr>
-                <th>jid</th>
-                <th>name</th>
-                <th>state</th>
-                <th>start-time</th>
-                <th>end-time</th>
-                <th>duration</th>
-                <th>last-modification</th>
-            </tr>
-
-            <c:forEach items="${jobsComp}" var="job">
+    <h4>已完成的任务</h4>
+    <div class="end">
+        <c:if test="${empty jobsComp}">
+            <div class="alert alert-warning" role="alert">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true">无任务完成</span>
+            </div>
+        </c:if>
+        <!-- 如果用户列表非空 -->
+        <c:if test="${!empty jobsComp}">
+            <table class="table table-bordered table-striped" style="width:auto;">
                 <tr>
-                    <td>${job.get("jid")}</td>
-                    <td>${job.get("name")}</td>
-                    <td>${job.get("state")}</td>
-                    <td>${job.get("start-time")}</td>
-                    <td>${job.get("end-time")}</td>
-                    <td>${job.get("duration")}</td>
-                    <td>${job.get("last-modification")}</td>
+                    <%--<th>jid</th>--%>
+                    <th>name</th>
+                    <th>state</th>
+                    <th>start-time</th>
+                    <th>end-time</th>
+                    <th>duration</th>
+                    <th>last-modification</th>
                 </tr>
-            </c:forEach>
-        </table>
-    </c:if>
+
+                <c:forEach items="${jobsComp}" var="job">
+                    <tr>
+                        <%--<td>${job.get("jid")}</td>--%>
+                        <td>${job.get("name")}</td>
+                        <td>${job.get("state")}</td>
+                        <td>${job.get("start-time")}</td>
+                        <td>${job.get("end-time")}</td>
+                        <td>${job.get("duration")}</td>
+                        <td>${job.get("last-modification")}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
+    </div>
 </div>
+
+
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script>
+    console.log(123);
+    function getJobObj() {
+
+        $.ajax({
+            url: "/job/running",
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                alert("here");
+            }
+        });
+    }
+//    getJobObj();
+    setInterval(function(){
+        $.get("/job/running",function(data){
+            var result = JSON.parse(data);
+            if(result.jobs.length>0){
+                var runningDiv = $(".running")[0];
+                var table = document.createElement("table");
+                table.className="table table-bordered table-striped";
+                table.style.width="auto";
+                var tbody = document.createElement("tbody");
+                table.appendChild(tbody);
+                tbody.innerHTML="<tr><th>name</th><th>state</th><th>start-time</th><th>end-time</th>"
+                        +"<th>duration</th><th>last-modification</th><th>opr</th></tr>";
+                for(var i in result.jobs){
+                    var tr = document.createElement("tr");
+                    var start = new Date(result.jobsComp[i]['start-time']);
+                    var startTime = start.getFullYear()+"-"
+                            +(start.getMonth()+1 < 10 ? '0'+(start.getMonth()+1) : start.getMonth()+1) + '-'
+                            +start.getDay()+" "+start.getHours()+":"+start.getMinutes()+":"+start.getSeconds();
+                    var last = new Date(result.jobsComp[i]['last-modification']);
+                    var lastTime = last.getFullYear()+"-"
+                            +(last.getMonth()+1 < 10 ? '0'+(last.getMonth()+1) : last.getMonth()+1) + '-'
+                            +last.getDay()+" "+last.getHours()+":"+last.getMinutes()+":"+last.getSeconds();
+                    var end = new Date();
+                    var endTime = end.getFullYear()+"-"
+                            +(end.getMonth()+1 < 10 ? '0'+(end.getMonth()+1) : end.getMonth()+1) + '-'
+                            +end.getDay()+" "+end.getHours()+":"+end.getMinutes()+":"+end.getSeconds();
+                    tr.innerHTML="<td>"+result.jobs[i].name+"</td>"
+                            +"<td>"+result.jobs[i].state+"</td>"
+                            +"<td>"+startTime+"</td>"
+                            +"<td>"+endTime+"</td>"
+                            +"<td>"+result.jobs[i].duration+"</td>"
+                            +"<td>"+lastTime+"</td>"
+                            +"<td><a href=\"/job/opr/"+result.jobs[i].jid+"\" type=\"button\" class=\"btn btn-sm btn-success\">cancel</a> </td>";
+                    tbody.appendChild(tr);
+                }
+                runningDiv.innerHTML="";
+                runningDiv.appendChild(table);
+
+
+            }else{
+                $(".running")[0].innerHTML="<div class=\"alert alert-warning\" role=\"alert\"> <span class=\"glyphicon glyphicon-info-sign\" aria-hidden=\"true\">无任务在运行</span> </div>"
+            }
+            if(result.jobsComp.length>0){
+                var endDiv = $(".end")[0];
+                var table = document.createElement("table");
+                table.className="table table-bordered table-striped";
+                table.style.width="auto";
+                var tbody = document.createElement("tbody");
+                table.appendChild(tbody);
+                tbody.innerHTML="<tr><th>name</th><th>state</th><th>start-time</th><th>end-time</th>"
+                        +"<th>duration</th><th>last-modification</th></tr>";
+                for(var i in result.jobsComp){
+                    var tr = document.createElement("tr");
+                    var start = new Date(result.jobsComp[i]['start-time']);
+                    var startTime = start.getFullYear()+"-"
+                            +(start.getMonth()+1 < 10 ? '0'+(start.getMonth()+1) : start.getMonth()+1) + '-'
+                            +start.getDay()+" "+start.getHours()+":"+start.getMinutes()+":"+start.getSeconds();
+                    var end = new Date(result.jobsComp[i]['end-time']);
+                    var endTime = end.getFullYear()+"-"
+                            +(end.getMonth()+1 < 10 ? '0'+(end.getMonth()+1) : end.getMonth()+1) + '-'
+                            +end.getDay()+" "+end.getHours()+":"+end.getMinutes()+":"+end.getSeconds();
+                    var last = new Date(result.jobsComp[i]['last-modification']);
+                    var lastTime = last.getFullYear()+"-"
+                            +(last.getMonth()+1 < 10 ? '0'+(last.getMonth()+1) : last.getMonth()+1) + '-'
+                            +last.getDay()+" "+last.getHours()+":"+last.getMinutes()+":"+last.getSeconds();
+                    tr.innerHTML="<td>"+result.jobsComp[i].name+"</td>"
+                            +"<td>"+result.jobsComp[i].state+"</td>"
+                            +"<td>"+startTime+"</td>"
+                            +"<td>"+endTime+"</td>"
+                            +"<td>"+result.jobsComp[i].duration+"</td>"
+                            +"<td>"+lastTime+"</td>";
+                    tbody.appendChild(tr);
+                }
+                endDiv.innerHTML="";
+                endDiv.appendChild(table);
+            }else{
+                $(".end")[0].innerHTML="<div class=\"alert alert-warning\" role=\"alert\"> <span class=\"glyphicon glyphicon-info-sign\" aria-hidden=\"true\">无任务完成</span> </div>"
+            }
+        })
+    },1000);
+</script>
 </body>

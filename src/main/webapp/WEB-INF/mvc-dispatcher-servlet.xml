@@ -20,6 +20,12 @@
     <!-- 开启注解 -->
     <mvc:annotation-driven/>
 
+    <!--请求静态资源-->
+    <mvc:resources mapping="/images/**" location="/images/"></mvc:resources>
+    <mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
+    <mvc:resources mapping="/methods/**" location="/methods/"></mvc:resources>
+
+
     <!--ViewResolver 视图解析器-->
     <!--用于支持Servlet、JSP视图解析-->
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" >

@@ -28,7 +28,26 @@
             -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
             transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
         }
-
+        div.container{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 500px;
+            height:250px;
+            transform: translate(-50%,-150px);
+            background-color: rgba(255,255,255,0.8);
+            border-radius: 10px;
+        }
+        .container form{
+            width: 250px;
+            position: absolute;
+            left:50%;
+            transform: translateX(-50%);
+        }
+        body{
+            background-image: url("/images/nanhai.jpg");
+            background-size: cover;
+        }
     </style>
 
 
@@ -44,7 +63,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>欢迎来到异构传感器接入界面</h1>
+        <h3>欢迎来到异构传感器接入界面</h3>
         <hr/>
         <form:form action="/admin/users" method="post" commandName="us" role="form">
             <div class="form-group">
@@ -53,7 +72,7 @@
             </div>
             <div class="form-group">
                 <label for="password">密码  &nbsp&nbsp</label>
-                <input type="text" class="form-control-add" id="password" name="password">
+                <input type="password" class="form-control-add" id="password" name="password">
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-sm btn-success">登入</button>

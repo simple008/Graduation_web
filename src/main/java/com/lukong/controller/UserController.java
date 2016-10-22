@@ -27,7 +27,8 @@ public class UserController {
             return "/index";
         }else if(name.equals(userEntity.getName()))
         {
-            return "redirect:/admin/sns";
+            //return "redirect:/admin/sns";
+            return "redirect:/navigation/navigation";
         }else {
             System.out.println("user or password error!");
             return "/index";

@@ -22,7 +22,7 @@ import java.util.jar.JarFile;
  */
 public class SpringRestClient {
 
-    public static final String REST_SERVICE_URI="http://10.109.253.165:8081";
+    public static final String REST_SERVICE_URI="http://localhost:8081";
 
 
     /*-----GET-----*/
@@ -93,6 +93,13 @@ public class SpringRestClient {
         Map<String,List<Map>> res=restTemplate.getForObject(REST_SERVICE_URI+"/joboverview/completed",Map.class);
         List<Map>list=res.get("jobs");
         return list;
+    }
+
+    /*获取一个job处理数据的情况，例如读入多少字节，写入多少字节；读入多少记录，写入多少记录*/
+    public void getMetrics(String jid){
+
+        RestTemplate restTemplate=new RestTemplate();
+        //restTemplate.getForObject(REST_SERVICE_URI+"/jobs/{jid}/vertices/",)
     }
 
     /*----POST-----*/

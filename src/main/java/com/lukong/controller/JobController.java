@@ -1,5 +1,6 @@
 package com.lukong.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.lukong.services.SpringRestClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
@@ -36,17 +38,21 @@ public class JobController {
     public String cancel(@PathVariable("jid")String jid){
         springRestClient.cancel(jid);
 
-        return "redirect:/job/running";
+        return "redirect:/job/jobinfo";
     }
+    @ResponseBody
     @RequestMapping(value = "/job/running",method = RequestMethod.GET)
     public String redirect(ModelMap modelMap){
         List<Map> jobs=springRestClient.getJobs();
         List<Map> jobsComp=springRestClient.getJobsComp();
 
-        modelMap.addAttribute("jobs",jobs);
-        modelMap.addAttribute("jobsComp",jobsComp);
+//        modelMap.addAttribute("jobs",jobs);
+//        modelMap.addAttribute("jobsComp",jobsComp);
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("jobs",jobs);
+        jsonObject.put("jobsComp",jobsComp);
 
-        return "job/running";
+        return jsonObject.toJSONString();
     }
 
 }
