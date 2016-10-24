@@ -10,10 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.jar.JarFile;
 
 /**
@@ -81,25 +78,34 @@ public class SpringRestClient {
         RestTemplate restTemplate=new RestTemplate();
         Map<String,List<Map>> res=restTemplate.getForObject(REST_SERVICE_URI+"/joboverview/running",Map.class);
 
-        //Map map= res.get("jobs").get(0);
-        List<Map>list=res.get("jobs");
-        //System.out.println(map.get("name"));
+        List<Map>jobs=res.get("jobs");
 
-        return list;
+        return jobs;
     }
 
     public List<Map> getJobsComp(){
         RestTemplate restTemplate=new RestTemplate();
         Map<String,List<Map>> res=restTemplate.getForObject(REST_SERVICE_URI+"/joboverview/completed",Map.class);
-        List<Map>list=res.get("jobs");
-        return list;
+        List<Map>jobsComp=res.get("jobs");
+
+        return jobsComp;
     }
 
     /*获取一个job处理数据的情况，例如读入多少字节，写入多少字节；读入多少记录，写入多少记录*/
-    public void getMetrics(String jid){
+    public List<Map> getMetrics(String jid){
 
         RestTemplate restTemplate=new RestTemplate();
-        restTemplate.getForObject(REST_SERVICE_URI+"/jobs/{jid}/vertices/",Map.class,jid);
+        Map<String,Object>res=
+                restTemplate.getForObject(REST_SERVICE_URI+"/jobs/{jid}/vertices/",Map.class,jid);
+        List<Map> vertices= (List<Map>) res.get("vertices");
+
+        List<Map>metrics=new ArrayList<>();
+        for(int i=0;i<vertices.size();i++){
+            Map item= (Map) vertices.get(i).get("metrics");
+            metrics.add(item);
+        }
+
+        return metrics;
     }
 
     /*----POST-----*/
@@ -123,8 +129,6 @@ public class SpringRestClient {
         String test="test demo";
         Map res=restTemplate.postForObject(REST_SERVICE_URI+"/jars/{jarId}/run?entry-class={entry_class}&program-args={program_args}",
                 test,Map.class,uriVariables);
-
-        //System.out.println(res.get("jobid"));
 
         return res;
     }
@@ -153,5 +157,6 @@ public class SpringRestClient {
     /*------DELETE-------*/
 
     public static void main(String ...args){
+        //getMetrics("47fef4b2910e2027742e3d42b106189f");
     }
 }
