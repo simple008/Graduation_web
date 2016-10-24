@@ -142,11 +142,11 @@
                         +"<th>duration</th><th>opr</th></tr>";
                 for(var i in result.jobs){
                     var tr = document.createElement("tr");
-                    var start = new Date(result.jobsComp[i]['start-time']);
+                    var start = new Date(result.jobs[i]['start-time']);
                     var startTime = start.getFullYear()+"-"
                             +(start.getMonth()+1 < 10 ? '0'+(start.getMonth()+1) : start.getMonth()+1) + '-'
                             +start.getDay()+" "+start.getHours()+":"+start.getMinutes()+":"+start.getSeconds();
-                    var last = new Date(result.jobsComp[i]['last-modification']);
+                    var last = new Date(result.jobs[i]['last-modification']);
                     var lastTime = last.getFullYear()+"-"
                             +(last.getMonth()+1 < 10 ? '0'+(last.getMonth()+1) : last.getMonth()+1) + '-'
                             +last.getDay()+" "+last.getHours()+":"+last.getMinutes()+":"+last.getSeconds();

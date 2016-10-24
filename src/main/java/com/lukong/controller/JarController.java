@@ -72,11 +72,12 @@ public class JarController {
         sensorEntity.setSensor(sensor);
         SensorEntity sensor_target=snRepository.findOne(Example.of(sensorEntity));
         String topic=sensor_target.getTopicUp();
+        String topic_down=sensor_target.getTopicDown();
 
         System.out.println("topic: "+topic);
 
         String program_args_up="--sensor "+sensor +" --jarFileName "+jarFileName +" --topic "+topic;
-        String program_args_down="--sensor "+sensor +" --jarFileName "+jarFileName +" --topic "+topic+"-down";
+        String program_args_down="--sensor "+sensor +" --jarFileName "+jarFileName +" --topic "+topic_down;
         Map<String,Object> jobInfo_up=springRestClient.run(jarId,entry_class_up,program_args_up);
         Map<String,Object> jobInfo_down=springRestClient.run(jarId,entry_class_down,program_args_down);
 
