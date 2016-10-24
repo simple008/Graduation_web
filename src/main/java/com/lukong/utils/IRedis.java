@@ -1,4 +1,4 @@
-package com.lukong.util;
+package com.lukong.utils;
 
 /**
  * Created by lukong on 2016/10/24.
