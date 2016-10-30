@@ -81,7 +81,7 @@
                 </li>
 
                 <li >
-                    <a onclick="change('http://www.baidu.com')" href="javascript:void(0)">
+                    <a onclick="change('/data/data')" href="javascript:void(0)">
 
                         <i class="fa fa-wpforms" aria-hidden="true"></i> &nbsp;数据处理
                     </a>

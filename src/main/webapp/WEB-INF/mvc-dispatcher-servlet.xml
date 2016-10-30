@@ -83,6 +83,7 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <bean id="rest" class="com.lukong.services.SpringRestClient"></bean>
+    <bean id="kafka" class="com.lukong.utils.KafkaUtil"></bean>
 
     <!--支持文件上传-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

@@ -115,19 +115,7 @@
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <script>
-    console.log(123);
-    function getJobObj() {
 
-        $.ajax({
-            url: "/job/running",
-            type: "get",
-            dataType: "json",
-            success: function (data) {
-                alert("here");
-            }
-        });
-    }
-//    getJobObj();
     setInterval(function(){
         $.get("/job/running",function(data){
             var result = JSON.parse(data);

@@ -19,7 +19,7 @@ import java.util.jar.JarFile;
  */
 public class SpringRestClient {
 
-    public static final String REST_SERVICE_URI="http://localhost:8081";
+    public static final String REST_SERVICE_URI="http://10.109.253.168:8081";
 
 
     /*-----GET-----*/

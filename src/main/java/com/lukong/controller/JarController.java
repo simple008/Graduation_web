@@ -74,10 +74,14 @@ public class JarController {
         String topic=sensor_target.getTopicUp();
         String topic_down=sensor_target.getTopicDown();
 
+        /*设置解析的并行度*/
+
+
         System.out.println("topic: "+topic);
 
         String program_args_up="--sensor "+sensor +" --jarFileName "+jarFileName +" --topic "+topic;
         String program_args_down="--sensor "+sensor +" --jarFileName "+jarFileName +" --topic "+topic_down;
+
         Map<String,Object> jobInfo_up=springRestClient.run(jarId,entry_class_up,program_args_up);
         Map<String,Object> jobInfo_down=springRestClient.run(jarId,entry_class_down,program_args_down);
 
