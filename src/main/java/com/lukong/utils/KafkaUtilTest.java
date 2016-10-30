@@ -9,6 +9,6 @@ public class KafkaUtilTest {
     @Test
     public void testConsumer(){
         KafkaUtil kafkaUtil=new KafkaUtil();
-        kafkaUtil.consumer("ais-up");
+        kafkaUtil.kafkaConsumer("ais-up");
     }
 }

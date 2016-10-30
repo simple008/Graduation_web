@@ -2,10 +2,14 @@ package com.lukong.utils;
 
 
 import com.alibaba.fastjson.JSONObject;
+import kafka.consumer.Consumer;
+import kafka.consumer.ConsumerConfig;
+import kafka.consumer.ConsumerIterator;
+import kafka.consumer.KafkaStream;
+import kafka.javaapi.consumer.ConsumerConnector;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +24,9 @@ public class KafkaUtil {
     public static Logger LOG= LoggerFactory.getLogger(KafkaUtil.class);
     public static Properties properties=null;
     public static KafkaConsumer<String,String> consumer=null;
+    private static final String TOPIC = "ais-up";
+    private static final int THREAD_AMOUNT = 1;
+
     static {
         ResourceBundle resourceBundle=ResourceBundle.getBundle("kafka");
         String zk=resourceBundle.getString("zookeeper.connect");
@@ -43,7 +50,7 @@ public class KafkaUtil {
 
     /*每一秒从kafka中抽取数据，打包成JSON格式*/
 
-    public  List<JSONObject> consumer(String... topic){
+    public List<JSONObject> consumer(String... topic){
         consumer=new KafkaConsumer(properties);
         consumer.subscribe(Arrays.asList(topic));
         JSONObject jsonObject=null;
@@ -59,5 +66,52 @@ public class KafkaUtil {
 
         return list_json;
     }
+
+    public JSONObject kafkaConsumer(String topic){
+
+        /*遗留问题：有些线程会一直运行，无法正确关闭连接
+        * 状态：待解决
+        * */
+
+        ConsumerConfig consumerConfig=new ConsumerConfig(properties);
+        ConsumerConnector consumer= Consumer.createJavaConsumerConnector(consumerConfig);
+        HashMap<String,Integer> map=new HashMap<>();
+        map.put(topic,THREAD_AMOUNT);
+        Map<String, List<KafkaStream<byte[], byte[]>>> msgStreams=
+                consumer.createMessageStreams(map);
+
+        List<KafkaStream<byte[], byte[]>> msgStreamList=
+                msgStreams.get(topic);
+
+
+        KafkaStream<byte[], byte[]> kafkaStream=msgStreamList.get(0);
+
+
+        JSONObject jsonObject=new JSONObject();
+        List<String> strs=new ArrayList<>();
+        int count=10;
+
+        ConsumerIterator<byte[], byte[]> iterator = kafkaStream.iterator();
+
+        if(!iterator.hasNext()){
+            consumer.shutdown();
+            return new JSONObject();
+        }
+
+
+        while(count>0&&iterator.hasNext()) {
+            String message = new String(iterator.next().message());
+            System.out.println("message: " + message);
+            //jsonObject.put("data",message);
+            strs.add(message);
+            count--;
+        }
+
+        consumer.shutdown();
+        jsonObject.put("datas",strs);
+
+        return jsonObject;
+    }
+
 
 }

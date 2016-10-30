@@ -31,13 +31,14 @@ public class DataController {
     public String parse(){
 
         String topic=topicRepository.select();
-        List<JSONObject> list_json=kafkaUtil.consumer(topic);
-        JSONObject jsonObject=new JSONObject();
-        if(list_json.size()>0){
-            jsonObject.put("datas",list_json);
-            return jsonObject.toJSONString();
-        } else
-            return "NULL";
+        System.out.println("topic: "+topic);
+        //List<JSONObject> list_json=kafkaUtil.consumer(topic);
+
+        JSONObject jsonObject=
+                kafkaUtil.kafkaConsumer(topic);
+
+        return jsonObject.toJSONString();
+
     }
     @RequestMapping(value = "/topic",method = RequestMethod.POST)
     public String topic(@ModelAttribute TopicEntity topicEntity){
