@@ -85,8 +85,19 @@ public class JarController {
         Map<String,Object> jobInfo_up=springRestClient.run(jarId,entry_class_up,program_args_up);
         Map<String,Object> jobInfo_down=springRestClient.run(jarId,entry_class_down,program_args_down);
 
-        System.out.println("jobId: "+jobInfo_up.get("jobid"));
-        System.out.println("jobId: "+jobInfo_down.get("jobid"));
+        String jobUp= (String) jobInfo_up.get("jobid");
+        String jobDown= (String) jobInfo_down.get("jid");
+
+        System.out.println("up jobId: "+jobUp);
+        System.out.println("down jobId: "+jobDown);
+
+        /*将传感器跟任务ID绑定*/
+        //snRepository.select(sensor);
+        /*输出结果：
+        * res:tcp,localhost,5001*/
+
+        snRepository.updateId(sensor,jobUp,jobDown);
+
         System.out.println("jarFileName: "+jarFileName);
 
         return "submit success";

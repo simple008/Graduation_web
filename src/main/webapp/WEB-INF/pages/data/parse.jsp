@@ -20,7 +20,7 @@
             <div class="form-group">
                 <label for="topic" class="col-sm-2 control-label">主题:</label>
                 <input type="text" class="form-control addwidth" id="topic" name="topic" placeholder="Enter topic">
-                <button type="submit" class="btn btn-sm btn-success">提交</button>
+                <button type="submit" class="btn btn-sm btn-success">查询</button>
             </div>
 
         </form:form>
@@ -45,7 +45,7 @@
                     $(".show")[0].innerHTML = content;
                 }
             })
-        },5000);
+        },1000);
     </script>
     <style>
         .show{

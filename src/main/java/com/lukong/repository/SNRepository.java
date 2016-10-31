@@ -1,6 +1,7 @@
 package com.lukong.repository;
 
 import com.lukong.model.SensorEntity;
+import org.junit.Test;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,14 @@ public interface SNRepository extends JpaRepository<SensorEntity,Integer> {
             " where sn.sensor=:qsensor")
     void updateSn(@Param("qsensor") String sensor, @Param("qprotocol") String protocol
     ,@Param("qcomm")String comm,@Param("qip") String ip,@Param("qport")String port,@Param("qtopic") String topic,@Param("qtopicDown") String topicDown);
+
+    @Query("select communication,ip,port from SensorEntity  as sn where sn.sensor=:qsensor")
+    String select(@Param("qsensor") String sensor);
+
+
+    /*@Modifying与@Query注释一起使用才能修改数据库值*/
+    @Modifying
+    @Transactional
+    @Query("update SensorEntity sn set sn.jobUp=:qjobUp,sn.jopDown=:qjobDown where sn.sensor=:qsensor")
+    void updateId(@Param("qsensor") String sensor,@Param("qjobUp") String jobUp,@Param("qjobDown") String jobDown);
 }

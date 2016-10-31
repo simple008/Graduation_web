@@ -17,7 +17,7 @@ public class MetricsThread implements Runnable {
     public static Logger LOG= LoggerFactory.getLogger(MetricsThread.class);
     private boolean flag=true;
     private SpringRestClient springRestClient=null;
-    private Hashtable<String,Double> table_rate=null;
+    private Hashtable<String,Object> table_rate=null;
 
 
     /*构造函数*/
@@ -59,7 +59,7 @@ public class MetricsThread implements Runnable {
                 }else {
                     rate=write_records/read_records;
                     table_rate.put("rate",rate);
-
+                    table_rate.put("jid",jid);
                 }
             }
 

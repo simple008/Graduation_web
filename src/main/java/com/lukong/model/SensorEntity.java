@@ -15,6 +15,8 @@ public class SensorEntity {
     private String port;
     private String topicUp;
     private String topicDown;
+    private String jobUp;
+    private String jopDown;
 
     @Id
     @Column(name = "sensor", nullable = false, length = 50)
@@ -115,5 +117,25 @@ public class SensorEntity {
         result = 31 * result + (topicUp != null ? topicUp.hashCode() : 0);
         result = 31 * result + (topicDown != null ? topicDown.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "job_up", nullable = true, length = 50)
+    public String getJobUp() {
+        return jobUp;
+    }
+
+    public void setJobUp(String jobUp) {
+        this.jobUp = jobUp;
+    }
+
+    @Basic
+    @Column(name = "jop_down", nullable = true, length = 50)
+    public String getJopDown() {
+        return jopDown;
+    }
+
+    public void setJopDown(String jopDown) {
+        this.jopDown = jopDown;
     }
 }

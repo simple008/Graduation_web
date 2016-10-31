@@ -14,14 +14,15 @@ public class KafkaThread implements Runnable {
 
     @Override
     public void run() {
+        LOG.info("进入kafka队列线程");
         while (flag) {
-            LOG.info("进入kafka队列线程");
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 LOG.error(e.getMessage(),e);
             }
         }
+        LOG.info("kafka队列线程结束");
     }
 
     public void stop(){

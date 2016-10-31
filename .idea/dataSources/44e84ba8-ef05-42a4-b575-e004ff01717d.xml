@@ -63,32 +63,39 @@
       <mandatory>1</mandatory>
       <data-type>varchar(50)|0</data-type>
     </column>
-    <key id="22" parent="6" name="PRIMARY">
+    <column id="22" parent="6" name="job_up">
+      <data-type>varchar(50)|0</data-type>
+    </column>
+    <column id="23" parent="6" name="jop_down">
+      <data-type>varchar(50)|0</data-type>
+    </column>
+    <key id="24" parent="6" name="PRIMARY">
       <columns>sensor</columns>
       <primary>1</primary>
     </key>
-    <column id="23" parent="7" name="id">
+    <column id="25" parent="7" name="id">
       <mandatory>1</mandatory>
       <data-type>int(11)|0</data-type>
       <sequence-identity>1</sequence-identity>
     </column>
-    <column id="24" parent="7" name="sensor">
+    <column id="26" parent="7" name="sensor">
       <mandatory>1</mandatory>
       <data-type>varchar(50)|0</data-type>
     </column>
-    <key id="25" parent="7" name="PRIMARY">
+    <key id="27" parent="7" name="PRIMARY">
       <columns>id</columns>
       <primary>1</primary>
     </key>
-    <column id="26" parent="8" name="id">
+    <column id="28" parent="8" name="id">
       <mandatory>1</mandatory>
       <data-type>int(11)|0</data-type>
+      <sequence-identity>1</sequence-identity>
     </column>
-    <column id="27" parent="8" name="topic">
+    <column id="29" parent="8" name="topic">
       <mandatory>1</mandatory>
       <data-type>varchar(50)|0</data-type>
     </column>
-    <key id="28" parent="8" name="PRIMARY">
+    <key id="30" parent="8" name="PRIMARY">
       <columns>id</columns>
       <primary>1</primary>
     </key>

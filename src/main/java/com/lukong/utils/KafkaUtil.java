@@ -94,14 +94,16 @@ public class KafkaUtil {
         ConsumerIterator<byte[], byte[]> iterator = kafkaStream.iterator();
 
         if(!iterator.hasNext()){
+            LOG.info("kafka队列没有数据");
             consumer.shutdown();
             return new JSONObject();
         }
 
 
         while(count>0&&iterator.hasNext()) {
+            LOG.info("从kafka中抽取数据");
             String message = new String(iterator.next().message());
-            System.out.println("message: " + message);
+            //System.out.println("message: " + message);
             //jsonObject.put("data",message);
             strs.add(message);
             count--;
@@ -109,7 +111,7 @@ public class KafkaUtil {
 
         consumer.shutdown();
         jsonObject.put("datas",strs);
-
+        LOG.info("message: "+jsonObject.toJSONString());
         return jsonObject;
     }
 
