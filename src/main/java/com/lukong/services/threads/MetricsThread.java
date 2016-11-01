@@ -35,14 +35,14 @@ public class MetricsThread implements Runnable {
             for (Map job:jobs) {
                 String jid= (String) job.get("jid");
                 //System.out.println("jid: "+jid);
-//                LOG.info("jid: "+jid);
+                LOG.info("jid: "+jid);
                 List<Map>metrics=springRestClient.getMetrics(jid);
                 Map metrics_node_map=metrics.get(1);
 
 //                LOG.info("read-bytes:"+metrics_node_map.get("read-bytes"));
 //                LOG.info("write-bytes:"+metrics_node_map.get("write-bytes"));
-//                LOG.info("read-records:"+metrics_node_map.get("read-records"));
-//                LOG.info("write-records:"+metrics_node_map.get("write-records"));
+                LOG.info("read-records:"+metrics_node_map.get("read-records"));
+                LOG.info("write-records:"+metrics_node_map.get("write-records"));
             /*
                 监督任务运行情况，根据每个任务处理数据的情况（读入记录和写入记录之比）
                 进行判断，该数据需不需进行缓存到redis，若写入记录/读入记录<95%，则将

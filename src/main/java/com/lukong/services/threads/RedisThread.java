@@ -1,9 +1,11 @@
 package com.lukong.services.threads;
 
-
 import com.lukong.services.SpringRestClient;
+import com.lukong.services.dao.SensorDaoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 
 /**
@@ -14,6 +16,7 @@ public class RedisThread implements Runnable {
     private boolean flag=true;
     private SpringRestClient springRestClient=new SpringRestClient();
     private String jid=null;
+    private SensorDaoImpl sensorDaoImpl=new SensorDaoImpl();
 
     public RedisThread(){}
     public RedisThread(String jid){
@@ -29,21 +32,23 @@ public class RedisThread implements Runnable {
         String jarId= (String) springRestClient.getJars().get("id");
         String entry_class="com.bupt.flink.apps.demo.dataRev.DataReceive";
 
-        /*根据jid，利用JPA获取数据库获取执行参数*/
+        String sensor=sensorDaoImpl.getSensor(jid);
+        System.out.println("sensor: "+sensor);
 
-        String program_args="";
-        springRestClient.run(jarId,entry_class,program_args);
+        /*用任务的ID作为redis缓存的KEY*/
+        String program_args="--sensor "+sensor +"--key "+jid +"--way "+"redis";
+        Map map=
+                springRestClient.run(jarId,entry_class,program_args);
 
+        if(map.get("jid")!=null)
+            LOG.info("开始将数据缓存在Redis中");
+        else {
+            LOG.info("数据未能进入缓存中...");
+        }
     }
 
     public void stop(){
         flag=false;
     }
 
-
-    public static void main(String... args){
-        RedisThread redisThread=new RedisThread();
-        Thread thread=new Thread(redisThread);
-        thread.start();
-    }
 }

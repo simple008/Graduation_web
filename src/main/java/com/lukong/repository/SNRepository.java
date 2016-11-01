@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Created by lukong on 16/9/17.
  */
-public interface SNRepository extends JpaRepository<SensorEntity,Integer> {
+public interface SNRepository extends JpaRepository<SensorEntity,String> {
     @Modifying      // 说明该方法是修改操作
     @Transactional  // 说明该方法是事务性操作
     // 定义查询
@@ -30,4 +30,7 @@ public interface SNRepository extends JpaRepository<SensorEntity,Integer> {
     @Transactional
     @Query("update SensorEntity sn set sn.jobUp=:qjobUp,sn.jopDown=:qjobDown where sn.sensor=:qsensor")
     void updateId(@Param("qsensor") String sensor,@Param("qjobUp") String jobUp,@Param("qjobDown") String jobDown);
+
+    @Query ("select sensor from SensorEntity as sn where sn.jobUp=:jobUp")
+    String selectSensor(@Param("jobUp") String jobUp);
 }
