@@ -45,7 +45,7 @@
                     $(".show")[0].innerHTML = content;
                 }
             })
-        },1000);
+        },5000);
     </script>
     <style>
         .show{

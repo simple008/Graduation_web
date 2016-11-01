@@ -80,6 +80,9 @@ public class SpringRestClient {
 
         List<Map>jobs=res.get("jobs");
 
+        /*排除cache这些策略任务*/
+
+
         return jobs;
     }
 

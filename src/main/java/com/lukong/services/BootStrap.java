@@ -132,6 +132,9 @@ public class BootStrap {
                     if(flag_redis&&!set.contains(jid)){
                         LOG.info("job: "+jid+"parse rate: "+rate_str+"%"+" 采用redis缓存策略");
 
+                        springRestClient.cancel(jid);
+                        Thread.sleep(5000);
+
                         set.add(jid);
                         map.put(jid,"redis");
                         /*将jid传入执行线程*/
@@ -157,6 +160,9 @@ public class BootStrap {
                     if(flag_kafka&&!set.contains(jid)){
 
                         LOG.info("job: "+jid+" parse rate: "+rate_str+"%"+" 采用kafka消息队列策略");
+
+                        springRestClient.cancel(jid);
+                        Thread.sleep(5000);
 
                         set.add(jid);
                         map.put(jid,"kafka");
