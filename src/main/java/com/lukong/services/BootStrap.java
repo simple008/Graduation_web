@@ -1,6 +1,7 @@
 package com.lukong.services;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.lukong.services.threads.KafkaThread;
 import com.lukong.services.threads.MetricsThread;
 import com.lukong.services.threads.RedisThread;
@@ -8,9 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.DecimalFormat;
-import java.util.Hashtable;
-import java.util.Properties;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,6 +28,7 @@ public class BootStrap {
     private static boolean flag_redis=true;
     private static boolean flag_kafka=true;
     private static Properties properties=new Properties();
+    private static HashSet set=new HashSet();
 
 
     static {
@@ -65,64 +65,102 @@ public class BootStrap {
             double rate=0;
             String rate_str=null;
             String jid=null;
-            if(table_rate.get("rate")==null){
-                rate=0;
-            }else {
-                rate= (double) table_rate.get("rate");
-                rate_str=new DecimalFormat("#.00").format(rate*100);
-                jid= (String) table_rate.get("jid");
+
+            /*-----解析json数据-------*/
+
+            List msg= (List) table_rate.get("msg");
+
+            if(msg==null){
+                continue;
             }
 
+            for(int i=0;i<msg.size();i++){
+                JSONObject json= (JSONObject) msg.get(i);
+                //System.out.println("main json:"+json);
+                if(json.get("rate")==null){
+                    rate=0;
+                }else {
+                    rate= (double) json.get("rate");
+                    jid= (String) json.get("jid");
+                }
 
+            /*-------随机概率测试-------------*/
 
             /*生成随机处理速度rate测试*/
-            rate=Math.random();
-            LOG.info("random rate: "+rate);
-            rate_str=new DecimalFormat("#.00").format(rate*100);
+                rate=Math.random();
+                //LOG.info("random rate: "+rate);
+                rate_str=new DecimalFormat("#.00").format(rate*100);
 
 
-            double normal_lower= (double) properties.get("normal.rate.lower");
-            double redis_upper= (double) properties.get("redis.rate.upper");
-            double redis_lower= (double) properties.get("redis.rate.lower");
-            double kafka_upper= (double) properties.get("kafka.rate.upper");
-            double kafka_lower= (double) properties.get("kafka.rate.lower");
+                double normal_lower= (double) properties.get("normal.rate.lower");
+                double redis_upper= (double) properties.get("redis.rate.upper");
+                double redis_lower= (double) properties.get("redis.rate.lower");
+                double kafka_upper= (double) properties.get("kafka.rate.upper");
+                double kafka_lower= (double) properties.get("kafka.rate.lower");
 
+                /*--------调度策略-------------*/
 
-            if(rate>normal_lower){
+                if(rate>normal_lower){
                 /*数据处理速度在98%上，正常处理*/
-                LOG.info("parse rate: "+rate_str+"%"+" 采用正常策略");
+                    LOG.info("job: "+jid+" parse rate: "+rate_str+"%"+" 采用正常策略");
 
-            } else if(rate<=redis_upper&&rate>=redis_lower){
+
+                /*如果任务的处理速度上升，将将任务恢复正常处理策略*/
+                    if(set.contains(jid)){
+                        LOG.info("将缓存的任务恢复正常策略...");
+
+                    }
+
+                } else if(rate<=redis_upper&&rate>=redis_lower){
                 /* 数据处理数据在[90%,98%]
                  * 将数据存储在redis中
                  */
-                LOG.info("parse rate: "+rate_str+"%"+" 采用redis缓存策略");
+
+                /*增加判断条件:
+                * 处理过的Job不需要再处理一遍*/
+                    if(set.contains(jid)){
+                        LOG.info("job: "+jid+" 已采用redis缓存策略");
+                    }
 
 
-                if(flag_redis){
+                    if(flag_redis&&!set.contains(jid)){
+                        LOG.info("job: "+jid+"parse rate: "+rate_str+"%"+" 采用redis缓存策略");
 
+                        set.add(jid);
                     /*将jid传入执行线程*/
-                    future_redis=threadPool.submit(new RedisThread(jid));
-                    System.out.println("future_redis result: "+future_redis.isDone());
-                    flag_redis=future_redis.isDone();
-                }
+                        future_redis=threadPool.submit(new RedisThread(jid));
+                        Thread.sleep(5000);
+                        System.out.println("future_redis result: "+future_redis.isDone());
+                        flag_redis=future_redis.isDone();
+                    }
 
 
-            }else if(rate<kafka_upper&&rate>kafka_lower){
+                }else if(rate<kafka_upper&&rate>kafka_lower){
                 /*数据处理速度小于90%则将数据推送到kafka消息队列中，数据解析在从消息队列中获取数据解析*/
-                LOG.info("parse rate: "+rate_str+"%"+" 采用kafka消息队列策略");
 
-                if(flag_kafka){
-                    future_kafka=threadPool.submit(new KafkaThread());
-                    System.out.println("future_kafka result: "+future_kafka.isDone());
-                    flag_kafka=future_kafka.isDone();
+                    if(set.contains(jid)){
+                        LOG.info("job: "+jid+" 已采用kafka消息队列策略");
+                    }
+
+                    if(flag_kafka&&!set.contains(jid)){
+
+                        LOG.info("job: "+jid+" parse rate: "+rate_str+"%"+" 采用kafka消息队列策略");
+
+                        set.add(jid);
+
+                        future_kafka=threadPool.submit(new KafkaThread());
+                        Thread.sleep(5000);
+                        System.out.println("future_kafka result: "+future_kafka.isDone());
+                        flag_kafka=future_kafka.isDone();
+                    }
+
+                }else {
+                    LOG.info("parse rate: "+rate_str+"%"+" 没有数据流入");
                 }
 
-            }else {
-                LOG.info("parse rate: "+rate_str+"%"+" 没有数据流入");
+                Thread.sleep(2000);
             }
 
-            Thread.sleep(500);
         }
     }
 }

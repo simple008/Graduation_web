@@ -15,13 +15,9 @@ public class KafkaThread implements Runnable {
     @Override
     public void run() {
         LOG.info("进入kafka队列线程");
-        while (flag) {
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                LOG.error(e.getMessage(),e);
-            }
-        }
+
+        LOG.info("采用kafka策略处理中...");
+
         LOG.info("kafka队列线程结束");
     }
 

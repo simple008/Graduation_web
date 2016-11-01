@@ -1,5 +1,6 @@
 package com.lukong.services.dao;
 
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,11 +18,13 @@ public class SensorDaoImpl extends BaseJdbcDao implements SensorDao {
 
     @Override
     public String getSensor(String jid) {
-        String SQL="SELECT sensor FROM test.sensor WHERE job_up= "+"'"+jid+"'";
+        String SQL="SELECT sensor,topic_up FROM test.sensor WHERE job_up= "+"'"+jid+"'";
         Connection connection=null;
         PreparedStatement pst=null;
         ResultSet resultSet=null;
         String sensor=null;
+        String topic=null;
+        JSONObject jsonObject=new JSONObject();
 
         try {
             connection=getConnection();
@@ -30,11 +33,15 @@ public class SensorDaoImpl extends BaseJdbcDao implements SensorDao {
 
             if(resultSet.next()){
                 sensor= resultSet.getString("sensor");
+                topic=resultSet.getString("topic_up");
+                jsonObject.put("sensor",sensor);
+                jsonObject.put("topic_up",topic);
             }
         } catch (SQLException e) {
             LOG.error(e.getMessage(),e);
         }
 
-        return sensor;
+        return jsonObject.toJSONString();
     }
+
 }
