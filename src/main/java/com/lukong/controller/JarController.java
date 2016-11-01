@@ -92,11 +92,8 @@ public class JarController {
         System.out.println("down jobId: "+jobDown);
 
         /*将传感器跟任务ID绑定*/
-        //snRepository.select(sensor);
-        /*输出结果：
-        * res:tcp,localhost,5001*/
-
         snRepository.updateId(sensor,jobUp,jobDown);
+
 
         System.out.println("jarFileName: "+jarFileName);
 
