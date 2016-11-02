@@ -80,7 +80,7 @@ public class RedisThread implements Runnable {
 
 
     public static void main(String ... args){
-        RedisThread redisThread=new RedisThread("0908568485a3eec1e7c18ec8921522a1");
+        RedisThread redisThread=new RedisThread("f80a0d3a1bd37e211bb761a4d82254e9");
         Thread thread=new Thread(redisThread);
         thread.start();
     }
