@@ -35,7 +35,7 @@ public class SpringRestClient {
         Map jarFile=null;
         if (iterator.hasNext()){
             jarFile= (Map) iterator.next();
-            System.out.println("id: "+jarFile.get("id")+" name:"+jarFile.get("name"));
+            System.out.println("jarId: "+jarFile.get("id")+" name:"+jarFile.get("name"));
         }
         return jarFile;
     }
@@ -120,7 +120,7 @@ public class SpringRestClient {
          "jobid": "2c262866f234a3d96ed566ec7842ed13"
       }
     * */
-    public  Map run(String jarId,String entry_class,String program_args){
+    public  static Map run(String jarId,String entry_class,String program_args){
         System.out.println("run job...");
 
         Map<String,Object>uriVariables=new HashedMap();
@@ -130,6 +130,7 @@ public class SpringRestClient {
 
         RestTemplate restTemplate=new RestTemplate();
         String test="test demo";
+
         Map res=restTemplate.postForObject(REST_SERVICE_URI+"/jars/{jarId}/run?entry-class={entry_class}&program-args={program_args}",
                 test,Map.class,uriVariables);
 
@@ -161,5 +162,7 @@ public class SpringRestClient {
 
     public static void main(String ...args){
         //getMetrics("47fef4b2910e2027742e3d42b106189f");
+        run("d6d76c44-220f-4e38-965a-701a8d808d47_Graduation-1.0-SNAPSHOT.jar",
+                "com.bupt.flink.apps.demo.dataRev.DataReceive","--test kafka --sensor ais --key f80a0d3a1bd37e211bb761a4d82254e9");
     }
 }

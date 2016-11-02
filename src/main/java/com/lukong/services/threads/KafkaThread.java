@@ -47,12 +47,16 @@ public class KafkaThread implements Runnable {
         System.out.println("topic: "+topic);
 
         /*用任务的ID作为redis缓存的KEY*/
-        String program_args="--sensor "+sensor +"--key "+jid +"--way "+"kafka "+"--topic "+topic;
-        Map map_cache=
-                springRestClient.run(jarId,entry_class_cache,program_args);
+        String program_args_cache=
+                "--sensor "+sensor +" --key "+jid +" --mode kafka";
+        String program_args_process=
+                "--sensor "+sensor +" --key "+jid +" --topic "+topic;
 
-        Map map_process=
-                springRestClient.run(jarId,entry_class_process,program_args);
+        Map<String,Object> map_cache=
+                springRestClient.run(jarId,entry_class_cache,program_args_cache);
+
+        Map<String,Object> map_process=
+                springRestClient.run(jarId,entry_class_process,program_args_process);
 
 
         if(map_cache.get("jid")!=null)
@@ -75,7 +79,7 @@ public class KafkaThread implements Runnable {
     }
 
     public static void main(String ... args){
-        KafkaThread kafkaThread=new KafkaThread("0908568485a3eec1e7c18ec8921522a1");
+        KafkaThread kafkaThread=new KafkaThread("f80a0d3a1bd37e211bb761a4d82254e9");
         Thread thread=new Thread(kafkaThread);
         thread.start();
 

@@ -48,12 +48,17 @@ public class RedisThread implements Runnable {
         System.out.println("topic: "+topic);
 
         /*用任务的ID作为redis缓存的KEY*/
-        String program_args="--sensor "+sensor +"--key "+jid +"--way "+"redis "+"--topic "+topic;
-        Map map_cache=
-                springRestClient.run(jarId,entry_class_cache,program_args);
+        String program_args_cache=
+                "--sensor "+sensor +" --key "+jid +" --mode "+"redis";
 
-        Map map_process=
-                springRestClient.run(jarId,entry_class_process,program_args);
+        String program_args_process=
+                "--sensor "+sensor +" --key "+jid +" --topic "+topic;
+
+        Map<String,Object> map_cache=
+                springRestClient.run(jarId,entry_class_cache,program_args_cache);
+
+        Map<String,Object> map_process=
+                springRestClient.run(jarId,entry_class_process,program_args_process);
 
 
         if(map_cache.get("jid")!=null)
