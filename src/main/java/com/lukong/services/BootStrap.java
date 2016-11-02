@@ -91,6 +91,9 @@ public class BootStrap {
 
             /*生成随机处理速度rate测试*/
                 rate=Math.random();
+
+                /*设定固定值分块测试*/
+                rate=0.95;
                 //LOG.info("random rate: "+rate);
                 rate_str=new DecimalFormat("#.00").format(rate*100);
 
@@ -140,7 +143,7 @@ public class BootStrap {
                         /*将jid传入执行线程*/
                         System.out.println("jid: "+jid);
                         future_redis=threadPool.submit(new RedisThread(jid));
-                        Thread.sleep(5000);
+                        Thread.sleep(10000);
                         System.out.println("future_redis result: "+future_redis.isDone());
                         flag_redis=future_redis.isDone();
                     }
@@ -169,7 +172,7 @@ public class BootStrap {
 
                         System.out.println("jid: "+jid);
                         future_kafka=threadPool.submit(new KafkaThread(jid));
-                        Thread.sleep(5000);
+                        Thread.sleep(10000);
                         System.out.println("future_kafka result: "+future_kafka.isDone());
                         flag_kafka=future_kafka.isDone();
                     }

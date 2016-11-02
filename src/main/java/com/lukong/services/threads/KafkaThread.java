@@ -52,24 +52,24 @@ public class KafkaThread implements Runnable {
         String program_args_process=
                 "--sensor "+sensor +" --key "+jid +" --topic "+topic;
 
-        Map<String,Object> map_cache=
+        //Map<String,Object> map_cache=
                 springRestClient.run(jarId,entry_class_cache,program_args_cache);
 
-        Map<String,Object> map_process=
+        //Map<String,Object> map_process=
                 springRestClient.run(jarId,entry_class_process,program_args_process);
 
 
-        if(map_cache.get("jid")!=null)
-            LOG.info("开始将数据发布在Kafka中");
-        else {
-            LOG.info("数据未能进入缓存中...");
-        }
-
-        if(map_process.get("jid")!=null){
-            LOG.info("开始解析数据");
-        }else {
-            LOG.info("未开始解析数据");
-        }
+//        if(map_cache.get("jid")!=null)
+//            LOG.info("开始将数据发布在Kafka中");
+//        else {
+//            LOG.info("数据未能进入缓存中...");
+//        }
+//
+//        if(map_process.get("jid")!=null){
+//            LOG.info("开始解析数据");
+//        }else {
+//            LOG.info("未开始解析数据");
+//        }
 
         LOG.info("kafka队列线程结束");
     }
