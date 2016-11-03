@@ -19,6 +19,16 @@ import java.util.concurrent.Future;
 /**
  * Created by lukong on 2016/10/22.
  * 根据数据处理的速度，将数据进行缓存
+ *
+ *
+ * 测试代码问题：
+ * 1.启动监控程序监控处理速度慢的任务时，将任务切换为缓存策略的任务时
+ * 出现没有读数据和写数据的状况
+ * 2.单独在Flink的Web Client上提交两个单独的任务时，任务正常读写
+ * 3.查找的策略：
+ *  待定。。。。
+ *
+ *
  */
 public class BootStrap {
 
@@ -94,7 +104,6 @@ public class BootStrap {
 
                 /*设定固定值分块测试*/
                 rate=0.95;
-                //LOG.info("random rate: "+rate);
                 rate_str=new DecimalFormat("#.00").format(rate*100);
 
 
@@ -113,7 +122,9 @@ public class BootStrap {
                 /*如果任务的处理速度上升，将将任务恢复正常处理策略*/
                     if(set.contains(jid)){
                         LOG.info("将缓存的任务恢复正常策略...");
-                        //springRestClient.cancel(jid);
+                        /*--------------------此处应该有将任务切换回正常策略的代码-------------------*/
+
+
                     }
 
                 } else if(rate<=redis_upper&&rate>=redis_lower){

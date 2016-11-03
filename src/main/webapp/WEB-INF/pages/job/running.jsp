@@ -146,7 +146,7 @@
                             +"<td>"+result.jobs[i].state+"</td>"
                             +"<td>"+startTime+"</td>"
                             +"<td>"+endTime+"</td>"
-                            +"<td>"+result.jobs[i].duration+"</td>"
+                            +"<td>"+getDuration(result.jobs[i].duration)+"</td>"
                             +"<td><a href=\"/job/opr/"+result.jobs[i].jid+"\" type=\"button\" class=\"btn btn-sm btn-success\">cancel</a> </td>";
                     tbody.appendChild(tr);
                 }
@@ -184,7 +184,7 @@
                             +"<td>"+result.jobsComp[i].state+"</td>"
                             +"<td>"+startTime+"</td>"
                             +"<td>"+endTime+"</td>"
-                            +"<td>"+result.jobsComp[i].duration+"</td>"
+                            +"<td>"+getDuration(result.jobsComp[i].duration)+"</td>"
                             ;
                     tbody.appendChild(tr);
                 }
@@ -195,5 +195,37 @@
             }
         })
     },1000);
+
+    function getDuration(d) {
+        var dur = '';
+        var sec = Math.floor(d/1000);
+        var min, hour, day;
+        //一分钟内
+        if(sec >=0 && sec <60) {
+            dur = sec + 's';
+        }
+        //一小时内
+        else if(sec >=60 && sec <3600) {
+            min = Math.floor(sec/60);
+            sec = sec%60;
+            dur = min + 'm '+ sec + 's';
+        }
+        //一天内
+        else if(sec >=3600 && sec <86400) {
+            hour = Math.floor(sec/3600);
+            min = Math.floor(sec%3600/60);
+            sec = sec%3600%60;
+            dur = hour + 'h ' + min + 'm '+ sec + 's';
+        }
+        //一天以上
+        else {
+            day = Math.floor(sec/86400);
+            hour = Math.floor(sec%86400/3600);
+            min = Math.floor(sec%86400%3600/60);
+            sec = sec%86400%3600%60;
+            dur = day + 'd ' + hour + 'h ' + min + 'm '+ sec + 's';
+        }
+        return dur;
+    }
 </script>
 </body>

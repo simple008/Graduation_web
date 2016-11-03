@@ -58,7 +58,7 @@
                         </td>
 
                         <td>
-                            <a href="/jar/add/${sn.sensor}" type="button" class="btn btn-sm btn-success">添加解析方法JAR</a>
+                            <a href="/jar/add/${sn.sensor}" type="button" class="btn btn-sm btn-success">提交方法</a>
                             <a href="javascript:void(0);" type="button" class="btn btn-sm btn-success"
                              onclick="submit('${sn.sensor}')">提交</a>
                         </td>

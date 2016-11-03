@@ -17,7 +17,7 @@
     <div>
         <form:form method="post" action="/jar/upload" commandName="jar" enctype="multipart/form-data">
             <tr>
-                <th><label for="file_jar">解析方法JAR包:</label></th>
+                <th><label for="file_jar">选择JAR文件:</label></th>
                 <td><input name="jar" type="file" id="file_jar"></td>
             </tr>
             <button type="submit" class="btn btn-sm btn-success">提交</button>
