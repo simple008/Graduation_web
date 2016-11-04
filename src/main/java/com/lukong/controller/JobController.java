@@ -27,6 +27,7 @@ public class JobController {
     public String getSns(ModelMap modelMap){
 
         List<Map> jobs=springRestClient.getJobs();
+
         List<Map> jobsComp=springRestClient.getJobsComp();
 
         modelMap.addAttribute("jobs",jobs);

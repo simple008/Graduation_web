@@ -5,9 +5,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.lukong.services.dao.SensorDaoImpl;
 import com.lukong.services.threads.KafkaThread;
 import com.lukong.services.threads.MetricsThread;
+import com.lukong.services.threads.NormalThread;
 import com.lukong.services.threads.RedisThread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import scala.collection.mutable.HashTable;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -26,7 +28,7 @@ import java.util.concurrent.Future;
  * 出现没有读数据和写数据的状况
  * 2.单独在Flink的Web Client上提交两个单独的任务时，任务正常读写
  * 3.查找的策略：
- *  待定。。。。
+ * 不太好的解决方案：重启数据模拟器，任务可以接受到数据，并正常解析
  *
  *
  */
@@ -41,6 +43,7 @@ public class BootStrap {
     private static Properties properties=new Properties();
     private static HashSet set=new HashSet();
     private static HashMap map=new HashMap();
+    private static Hashtable jobid_table=new Hashtable<>();
     private static SensorDaoImpl sensorDaoImpl=new SensorDaoImpl();
 
 
@@ -78,6 +81,7 @@ public class BootStrap {
             double rate=0;
             String rate_str=null;
             String jid=null;
+            String name=null;
 
             /*-----解析json数据-------*/
 
@@ -95,15 +99,16 @@ public class BootStrap {
                 }else {
                     rate= (double) json.get("rate");
                     jid= (String) json.get("jid");
+                    name= (String) json.get("name");
                 }
 
             /*-------随机概率测试-------------*/
 
             /*生成随机处理速度rate测试*/
-                rate=Math.random();
+                //rate=Math.random();
 
                 /*设定固定值分块测试*/
-                rate=0.95;
+                //rate=0.95;
                 rate_str=new DecimalFormat("#.00").format(rate*100);
 
 
@@ -117,13 +122,21 @@ public class BootStrap {
 
                 if(rate>normal_lower){
                 /*数据处理速度在98%上，正常处理*/
-                    LOG.info("job: "+jid+" parse rate: "+rate_str+"%"+" 采用正常策略");
+                    LOG.info("sensor: "+name+" job: "+jid+" parse rate: "+rate_str+"%"+" 采用正常策略");
 
                 /*如果任务的处理速度上升，将将任务恢复正常处理策略*/
                     if(set.contains(jid)){
                         LOG.info("将缓存的任务恢复正常策略...");
                         /*--------------------此处应该有将任务切换回正常策略的代码-------------------*/
 
+                        /*先将现在的策略任务关闭，然后开启正常策略*/
+                        JSONObject jsonObject= (JSONObject) jobid_table.get(jid);
+                        String jid_cache= (String) jsonObject.get("cache");
+                        String jid_pre= (String) jsonObject.get("pre");
+                        springRestClient.cancel(jid_cache);
+                        springRestClient.cancel(jid);
+
+                        threadPool.submit(new NormalThread(jid_pre));
 
                     }
 
@@ -136,15 +149,15 @@ public class BootStrap {
                 * 处理过的Job不需要再处理一遍*/
                     if(set.contains(jid)){
                         if(map.get(jid)=="redis")
-                            LOG.info("job: "+jid+" 已采用redis缓存策略");
+                            LOG.info("sensor: "+name+" job: "+jid+" 已采用redis缓存策略");
                         else if(map.get(jid)=="kafka"){
-                            LOG.info("job: "+jid+" 已采用kafka消息队列策略");
+                            LOG.info("sensor: "+name+" job: "+jid+" 已采用kafka消息队列策略");
                         }
                     }
 
 
                     if(flag_redis&&!set.contains(jid)){
-                        LOG.info("job: "+jid+"parse rate: "+rate_str+"%"+" 采用redis缓存策略");
+                        LOG.info("sensor: "+name+" job: "+jid+"parse rate: "+rate_str+"%"+" 采用redis缓存策略");
 
                         springRestClient.cancel(jid);
                         Thread.sleep(5000);
@@ -153,7 +166,7 @@ public class BootStrap {
                         map.put(jid,"redis");
                         /*将jid传入执行线程*/
                         System.out.println("jid: "+jid);
-                        future_redis=threadPool.submit(new RedisThread(jid));
+                        future_redis=threadPool.submit(new RedisThread(jid,jobid_table));
                         Thread.sleep(10000);
                         System.out.println("future_redis result: "+future_redis.isDone());
                         flag_redis=future_redis.isDone();
@@ -165,15 +178,15 @@ public class BootStrap {
 
                     if(set.contains(jid)){
                         if(map.get(jid)=="kafka")
-                            LOG.info("job: "+jid+" 已采用kafka消息队列策略");
+                            LOG.info("sensor: "+name+" job: "+jid+" 已采用kafka消息队列策略");
                         else if(map.get(jid)=="redis"){
-                            LOG.info("job: "+jid+" 已采用redis缓存策略");
+                            LOG.info("sensor: "+name+" job: "+jid+" 已采用redis缓存策略");
                         }
                     }
 
                     if(flag_kafka&&!set.contains(jid)){
 
-                        LOG.info("job: "+jid+" parse rate: "+rate_str+"%"+" 采用kafka消息队列策略");
+                        LOG.info("sensor: "+name+" job: "+jid+" parse rate: "+rate_str+"%"+" 采用kafka消息队列策略");
 
                         springRestClient.cancel(jid);
                         Thread.sleep(5000);
@@ -182,7 +195,7 @@ public class BootStrap {
                         map.put(jid,"kafka");
 
                         System.out.println("jid: "+jid);
-                        future_kafka=threadPool.submit(new KafkaThread(jid));
+                        future_kafka=threadPool.submit(new KafkaThread(jid,jobid_table));
                         Thread.sleep(10000);
                         System.out.println("future_kafka result: "+future_kafka.isDone());
                         flag_kafka=future_kafka.isDone();

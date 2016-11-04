@@ -5,4 +5,5 @@ package com.lukong.services.dao;
  */
 public interface SensorDao extends JdbcDao {
     String getSensor(String jid);
+    void update(String jid,String sensor);
 }

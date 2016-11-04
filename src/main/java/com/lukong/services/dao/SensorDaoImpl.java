@@ -1,6 +1,7 @@
 package com.lukong.services.dao;
 
 import com.alibaba.fastjson.JSONObject;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,4 +45,26 @@ public class SensorDaoImpl extends BaseJdbcDao implements SensorDao {
         return jsonObject.toJSONString();
     }
 
+    @Override
+    public void update(String jid, String sensor) {
+        String SQL="update test.sensor set job_up= "+"'"+jid+"'" +" where sensor= "+"'"+sensor+"'";
+        Connection connection=null;
+        PreparedStatement pst=null;
+
+
+        try {
+            connection=getConnection();
+            pst=connection.prepareStatement(SQL);
+            pst.executeUpdate();
+
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(),e);
+        }
+    }
+
+    @Test
+    public void test(){
+        SensorDaoImpl sensorDao=new SensorDaoImpl();
+        sensorDao.update("test","ais");
+    }
 }

@@ -7,7 +7,10 @@ import com.lukong.services.dao.SensorDaoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
+import java.util.UUID;
 
 
 /**
@@ -19,10 +22,17 @@ public class RedisThread implements Runnable {
     private SpringRestClient springRestClient=new SpringRestClient();
     private String jid=null;
     private SensorDaoImpl sensorDaoImpl=new SensorDaoImpl();
+    private Hashtable jobid_table=null;
+    private JSONObject jsonObject=new JSONObject();
+
 
     public RedisThread(){}
     public RedisThread(String jid){
         this.jid=jid;
+    }
+    public RedisThread(String jid,Hashtable jobid_table){
+        this.jid=jid;
+        this.jobid_table=jobid_table;
     }
 
     @Override
@@ -47,31 +57,31 @@ public class RedisThread implements Runnable {
         System.out.println("sensor: "+sensor);
         System.out.println("topic: "+topic);
 
+        UUID key=UUID.randomUUID();//随机生成key，由于缓存与处理逻辑之间的桥梁
+
         /*用任务的ID作为redis缓存的KEY*/
         String program_args_cache=
-                "--sensor "+sensor +" --key "+jid +" --mode "+"redis";
+                "--sensor "+sensor +" --key "+key +" --mode "+"redis";
 
         String program_args_process=
-                "--sensor "+sensor +" --key "+jid +" --topic "+topic;
-
-        //Map<String,Object> map_cache=
-                springRestClient.run(jarId,entry_class_cache,program_args_cache);
-
-        //Map<String,Object> map_process=
-                springRestClient.run(jarId,entry_class_process,program_args_process);
+                "--sensor "+sensor +" --key "+key +" --topic "+topic;
 
 
-//        if(map_cache.get("jid")!=null)
-//            LOG.info("开始将数据缓存在Redis中");
-//        else {
-//            LOG.info("数据未能进入缓存中...");
-//        }
-//
-//        if(map_process.get("jid")!=null){
-//            LOG.info("开始解析数据");
-//        }else {
-//            LOG.info("未开始解析数据");
-//        }
+        Map<String,Object> map=springRestClient.run(jarId,entry_class_cache,program_args_cache);
+
+        Map<String,Object> map1=springRestClient.run(jarId,entry_class_process,program_args_process);
+
+        String k= (String) map1.get("jobid");
+        String v= (String) map.get("jobid");
+        System.out.println("k: "+k+" v: "+v);
+
+        /*将缓存策略的任务id与之前的任务id绑定*/
+        jsonObject.put("pre",jid);
+        jsonObject.put("cache",v);
+
+
+        jobid_table.put(k,jsonObject);
+
         LOG.info("redis缓存完成");
     }
 
@@ -81,7 +91,7 @@ public class RedisThread implements Runnable {
 
 
     public static void main(String ... args){
-        RedisThread redisThread=new RedisThread("f80a0d3a1bd37e211bb761a4d82254e9");
+        RedisThread redisThread=new RedisThread("f76d0ae7ccca4e390e27ce6979585a0c");
         Thread thread=new Thread(redisThread);
         thread.start();
     }

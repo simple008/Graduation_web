@@ -82,6 +82,25 @@ public class SpringRestClient {
 
         /*排除cache这些策略任务*/
 
+        /*思路：遍历List,若Map.get("name").equal("cache"),则排除该Map信息*/
+//        for (Map item:jobs) {
+//            String name= (String) item.get("name");
+//            if(name.equals("cache")){
+//                jobs.remove(item);
+//            }
+//        }---->会导致java.util.ConcurrentModificationException异常
+
+
+        /*采用迭代器方式*/
+
+        Iterator it=jobs.iterator();
+        while (it.hasNext()){
+            Map item= (Map) it.next();
+            String name= (String) item.get("name");
+            if(name.equals("cache")){
+                it.remove();
+            }
+        }
 
         return jobs;
     }
@@ -107,6 +126,8 @@ public class SpringRestClient {
             Map item= (Map) vertices.get(i).get("metrics");
             metrics.add(item);
         }
+
+
 
         return metrics;
     }

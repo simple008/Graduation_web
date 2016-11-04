@@ -41,6 +41,7 @@ public class MetricsThread implements Runnable {
             for (Map job:jobs) {
 
                 String jid= (String) job.get("jid");
+                String name= (String) job.get("name");
                 //System.out.println("jid: "+jid);
                 //LOG.info("jid: "+jid);
                 List<Map>metrics=springRestClient.getMetrics(jid);
@@ -62,7 +63,7 @@ public class MetricsThread implements Runnable {
                 int write_records= (int) metrics_node_map.get("write-records");
 
                 if(read_records==0){
-                    //LOG.info("There is no data");
+                    LOG.info("sensor: "+name+" job: "+jid+ " 未处理数据");
                 }else {
 
                     /*获取不同的jid*/
@@ -71,6 +72,7 @@ public class MetricsThread implements Runnable {
                     JSONObject jsonObject=new JSONObject();
                     jsonObject.put("rate",rate);
                     jsonObject.put("jid",jid);
+                    jsonObject.put("name",name);
 
                     list.add(jsonObject);
 

@@ -86,7 +86,7 @@ public class JarController {
         Map<String,Object> jobInfo_down=springRestClient.run(jarId,entry_class_down,program_args_down);
 
         String jobUp= (String) jobInfo_up.get("jobid");
-        String jobDown= (String) jobInfo_down.get("jid");
+        String jobDown= (String) jobInfo_down.get("jobid");
 
         System.out.println("up jobId: "+jobUp);
         System.out.println("down jobId: "+jobDown);

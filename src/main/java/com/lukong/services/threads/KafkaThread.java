@@ -9,7 +9,9 @@ import com.lukong.utils.KafkaUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Hashtable;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by lukong on 2016/10/30.
@@ -21,10 +23,16 @@ public class KafkaThread implements Runnable {
     private SensorDaoImpl sensorDaoImpl=new SensorDaoImpl();
     private SpringRestClient springRestClient=new SpringRestClient();
     private String jid=null;
+    private Hashtable jobid_table=null;
+    private JSONObject jsonObject=new JSONObject();
 
     public KafkaThread(){}
     public KafkaThread(String jid){
         this.jid=jid;
+    }
+    public KafkaThread(String jid,Hashtable jobid_table){
+        this.jid=jid;
+        this.jobid_table=jobid_table;
     }
     @Override
     public void run() {
@@ -46,30 +54,27 @@ public class KafkaThread implements Runnable {
         System.out.println("sensor: "+sensor);
         System.out.println("topic: "+topic);
 
+        UUID key=UUID.randomUUID();
+
         /*用任务的ID作为redis缓存的KEY*/
         String program_args_cache=
-                "--sensor "+sensor +" --key "+jid +" --mode kafka";
+                "--sensor "+sensor +" --key "+key +" --mode kafka";
         String program_args_process=
-                "--sensor "+sensor +" --key "+jid +" --topic "+topic;
+                "--sensor "+sensor +" --key "+key +" --topic "+topic;
 
-        //Map<String,Object> map_cache=
-                springRestClient.run(jarId,entry_class_cache,program_args_cache);
+        Map<String,Object> map=
+            springRestClient.run(jarId,entry_class_cache,program_args_cache);
+        Map<String,Object> map1=
+            springRestClient.run(jarId,entry_class_process,program_args_process);
 
-        //Map<String,Object> map_process=
-                springRestClient.run(jarId,entry_class_process,program_args_process);
+        String k= (String) map1.get("jobid");
+        String v= (String) map.get("jobid");
+        System.out.println("k: "+k+" v: "+v);
 
+        jsonObject.put("pre",jid);
+        jsonObject.put("cache",v);
 
-//        if(map_cache.get("jid")!=null)
-//            LOG.info("开始将数据发布在Kafka中");
-//        else {
-//            LOG.info("数据未能进入缓存中...");
-//        }
-//
-//        if(map_process.get("jid")!=null){
-//            LOG.info("开始解析数据");
-//        }else {
-//            LOG.info("未开始解析数据");
-//        }
+        jobid_table.put(k,jsonObject);
 
         LOG.info("kafka队列线程结束");
     }
