@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.DecimalFormat;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -47,8 +49,30 @@ public class JobController {
         List<Map> jobs=springRestClient.getJobs();
         List<Map> jobsComp=springRestClient.getJobsComp();
 
-//        modelMap.addAttribute("jobs",jobs);
-//        modelMap.addAttribute("jobsComp",jobsComp);
+        /*将每个任务的处理速度加入JSON字符串中*/
+
+        Iterator iterator=jobs.iterator();
+        while (iterator.hasNext()){
+            Map item= (Map) iterator.next();
+            String jid= (String) item.get("jid");
+            List<Map> metrics=springRestClient.getMetrics(jid);
+            Map metrics_node_map=metrics.get(1);
+            double rate=0;
+            int read_records= (int) metrics_node_map.get("read-records");
+            int write_records= (int) metrics_node_map.get("write-records");
+
+            item.put("read-records",read_records);
+            item.put("write-records",write_records);
+            if(read_records==0){
+                rate=0.0;
+            }else {
+                rate=write_records/read_records;
+            }
+            String rate_str=new DecimalFormat("#0.00").format(rate*100);
+            item.put("rate",rate_str+"%");
+        }
+
+
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("jobs",jobs);
         jsonObject.put("jobsComp",jobsComp);

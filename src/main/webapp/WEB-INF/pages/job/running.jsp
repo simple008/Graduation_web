@@ -48,6 +48,9 @@
                     <th>start-time</th>
                     <th>end-time</th>
                     <th>duration</th>
+                        <th>read-records</th>
+                        <th>write-records</th>
+                        <th>rate</th>
                     <%--<th>last-modification</th>--%>
                     <th>opr</th>
                 </tr>
@@ -60,6 +63,9 @@
                         <td>${job.get("start-time")}</td>
                         <td>${job.get("end-time")}</td>
                         <td>${job.get("duration")}</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0.0</td>
                         <%--<td>${job.get("last-modification")}</td>--%>
                         <td>
                             <a href="/job/opr/${job.get("jid")}" type="button" class="btn btn-sm btn-success">cancel</a>
@@ -127,7 +133,7 @@
                 var tbody = document.createElement("tbody");
                 table.appendChild(tbody);
                 tbody.innerHTML="<tr><th>name</th><th>state</th><th>start-time</th><th>end-time</th>"
-                        +"<th>duration</th><th>opr</th></tr>";
+                        +"<th>duration</th><th>read-records</th><th>write-records</th><th>rate</th><th>opr</th></tr>";
                 for(var i in result.jobs){
                     var tr = document.createElement("tr");
                     var start = new Date(result.jobs[i]['start-time']);
@@ -142,11 +148,18 @@
                     var endTime = end.getFullYear()+"-"
                             +(end.getMonth()+1 < 10 ? '0'+(end.getMonth()+1) : end.getMonth()+1) + '-'
                             +end.getDay()+" "+end.getHours()+":"+end.getMinutes()+":"+end.getSeconds();
+                    var rate=result.jobs[i]['rate'];
+                    var read_records=result.jobs[i]['read-records'];
+                    var write_records=result.jobs[i]['write-records'];
+
                     tr.innerHTML="<td>"+result.jobs[i].name+"</td>"
                             +"<td>"+result.jobs[i].state+"</td>"
                             +"<td>"+startTime+"</td>"
                             +"<td>"+endTime+"</td>"
                             +"<td>"+getDuration(result.jobs[i].duration)+"</td>"
+                            +"<td>"+read_records+"</td>"
+                            +"<td>"+write_records+"</td>"
+                            +"<td>"+rate+"</td>"
                             +"<td><a href=\"/job/opr/"+result.jobs[i].jid+"\" type=\"button\" class=\"btn btn-sm btn-success\">cancel</a> </td>";
                     tbody.appendChild(tr);
                 }

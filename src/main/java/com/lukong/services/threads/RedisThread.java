@@ -18,7 +18,7 @@ import java.util.UUID;
  */
 public class RedisThread implements Runnable {
     private static Logger LOG= LoggerFactory.getLogger(RedisThread.class);
-    private boolean flag=true;
+    private volatile boolean flag=true;
     private SpringRestClient springRestClient=new SpringRestClient();
     private String jid=null;
     private SensorDaoImpl sensorDaoImpl=new SensorDaoImpl();

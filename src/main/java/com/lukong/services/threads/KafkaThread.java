@@ -19,7 +19,7 @@ import java.util.UUID;
 public class KafkaThread implements Runnable {
 
     private static Logger LOG= LoggerFactory.getLogger(KafkaThread.class);
-    private boolean flag=true;
+    private volatile boolean flag=true;
     private SensorDaoImpl sensorDaoImpl=new SensorDaoImpl();
     private SpringRestClient springRestClient=new SpringRestClient();
     private String jid=null;

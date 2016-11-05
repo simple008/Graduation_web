@@ -9,7 +9,6 @@ import com.lukong.services.threads.NormalThread;
 import com.lukong.services.threads.RedisThread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import scala.collection.mutable.HashTable;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -32,9 +31,9 @@ import java.util.concurrent.Future;
  *
  *
  */
-public class BootStrap {
+public class Monitor {
 
-    private static Logger LOG= LoggerFactory.getLogger(BootStrap.class);
+    private static Logger LOG= LoggerFactory.getLogger(Monitor.class);
     private static ExecutorService threadPool=null;
     private static Future future_redis=null;
     private static Future future_kafka=null;

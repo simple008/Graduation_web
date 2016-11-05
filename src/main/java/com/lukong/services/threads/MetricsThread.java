@@ -17,7 +17,7 @@ import java.util.Map;
 public class MetricsThread implements Runnable {
 
     public static Logger LOG= LoggerFactory.getLogger(MetricsThread.class);
-    private boolean flag=true;
+    private volatile boolean flag=true;//使每个线程任务时候看到该变量值都是相同的
     private SpringRestClient springRestClient=null;
     private Hashtable<String,Object> table_rate=null;
     //private List<JSONObject> list=new ArrayList<>();
