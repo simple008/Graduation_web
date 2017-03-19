@@ -83,7 +83,6 @@ public class Monitor {
             String name=null;
 
             /*-----解析json数据-------*/
-
             List msg= (List) table_rate.get("msg");
 
             if(msg==null){
@@ -104,7 +103,7 @@ public class Monitor {
             /*-------随机概率测试-------------*/
 
             /*生成随机处理速度rate测试*/
-                //rate=Math.random();
+                rate=Math.random();
 
                 /*设定固定值分块测试*/
                 //rate=0.95;
@@ -172,7 +171,8 @@ public class Monitor {
                     }
 
 
-                }else if(rate<kafka_upper&&rate>kafka_lower){
+                }
+                else if(rate<kafka_upper&&rate>kafka_lower){
                 /*数据处理速度小于90%则将数据推送到kafka消息队列中，数据解析在从消息队列中获取数据解析*/
 
                     if(set.contains(jid)){
@@ -200,7 +200,8 @@ public class Monitor {
                         flag_kafka=future_kafka.isDone();
                     }
 
-                }else {
+                }
+                else {
                     LOG.info("parse rate: "+rate_str+"%"+" 没有数据流入");
                 }
 

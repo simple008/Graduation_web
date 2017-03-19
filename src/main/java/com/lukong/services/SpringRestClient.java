@@ -11,11 +11,12 @@ import java.util.*;
 
 /**
  * Created by lukong on 16/10/8.
- * 与Flink UI通过RESTful API进行交互
+ * 与Flink集群通过RESTful API进行交互
  */
 public class SpringRestClient {
 
     public static final String REST_SERVICE_URI="http://10.109.253.168:8081";
+    //public static final String REST_SERVICE_URI="http://localhost:8081";
 
 
     /*-----GET-----*/
@@ -61,11 +62,11 @@ public class SpringRestClient {
     }
 
     /*停止运行中的任务*/
-    public void cancel(String jobid){
+    public void cancel(String jobId){
 
         RestTemplate restTemplate=new RestTemplate();
         String res=
-                restTemplate.getForObject(REST_SERVICE_URI+"/jobs/{jobId}/yarn-cancel",String.class,jobid);
+                restTemplate.getForObject(REST_SERVICE_URI+"/jobs/{jobId}/yarn-cancel",String.class,jobId);
 
     }
 
@@ -110,6 +111,8 @@ public class SpringRestClient {
     }
 
     /*获取一个job处理数据的情况，例如读入多少字节，写入多少字节；读入多少记录，写入多少记录*/
+
+
     public List<Map> getMetrics(String jid){
 
         RestTemplate restTemplate=new RestTemplate();
@@ -122,8 +125,6 @@ public class SpringRestClient {
             Map item= (Map) vertices.get(i).get("metrics");
             metrics.add(item);
         }
-
-
 
         return metrics;
     }
@@ -179,7 +180,7 @@ public class SpringRestClient {
 
     public static void main(String ...args){
         //getMetrics("47fef4b2910e2027742e3d42b106189f");
-        run("d6d76c44-220f-4e38-965a-701a8d808d47_Graduation-1.0-SNAPSHOT.jar",
+        run("8c1e6fdb-5c1d-4c45-9bcc-ac6d6d5fdf42_Graduation-1.0-SNAPSHOT.jar",
                 "com.bupt.flink.apps.demo.dataRev.DataReceive","--test kafka --sensor ais --key f80a0d3a1bd37e211bb761a4d82254e9");
     }
 }

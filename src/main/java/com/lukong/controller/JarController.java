@@ -5,6 +5,7 @@ import com.lukong.repository.RunRepository;
 import com.lukong.repository.SNRepository;
 import com.lukong.services.SpringRestClient;
 import org.apache.commons.io.FileUtils;
+import org.apache.flink.runtime.client.JobClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
@@ -61,6 +62,7 @@ public class JarController {
     @ResponseBody
     @RequestMapping(value = "jar/submit/{sensor}",method = RequestMethod.GET)
     public String submit(@PathVariable("sensor") String sensor){
+
 
         String jarId= (String) springRestClient.getJars().get("id");
         System.out.println("jarId:"+ jarId);

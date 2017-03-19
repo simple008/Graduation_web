@@ -120,6 +120,7 @@
           <element id="library" level="project" name="Maven: com.yammer.metrics:metrics-core:2.2.0" />
           <element id="library" level="project" name="Maven: net.sf.jopt-simple:jopt-simple:3.2" />
           <element id="library" level="project" name="Maven: com.101tec:zkclient:0.3" />
+          <element id="library" level="project" name="Maven: com.alibaba:druid:1.0.18" />
         </element>
       </element>
       <element id="directory" name="META-INF">
